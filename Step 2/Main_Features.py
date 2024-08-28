@@ -6,17 +6,16 @@ from datetime import datetime
 
 # Log sources of Incomes
 def getIncomeName() -> str:
-    income_input = input("Please enter you weekly income ('12324.23'): ")
-
-    return income_input
+    return input("Please enter Income name: ")
 
 def getIncomeType() -> str:
-    income_option_input = input("Please enter the type of income (Salary, Freelance, etc...): ")
+    return input("Please enter the type of Income (Salary, Freelance, etc...): ")
 
-    return income_option_input
+def getIncomeAmount() -> float:
+    return str(round(float(input("Please enter the Income amount (24421.45): ")), 2))
 
-def getIncomeDate():
-    income_date_input = input("Please enter date (MM/DD/YYYY) of income (*Leave blank for Today): ")
+def getIncomeDate() -> str:
+    income_date_input = input("Please enter date (MM/DD/YYYY) of Income (*Leave blank for Today): ")
 
     if income_date_input == "":
         income_date_input = datetime.now().strftime("%m/%d/%Y")
@@ -27,17 +26,16 @@ def getIncomeDate():
 
 # Log sources of Expenses
 def getExpenseName() -> str:
-    expense_input = input("Please enter expense: ")
-    
-    return expense_input
+    return input("Please enter Expense name: ")
 
 def getExpenseType() -> str:
-    expense_type_input = input("Please enter expense type (Rent, groceries, entertainment, etc...): ")
+    return input("Please enter Expense type (Rent, groceries, entertainment, etc...): ")
 
-    return expense_type_input
+def getExpenseAmount() -> float:
+    return str(round(float(input("Please enter the Expense amount (24421.45): ")), 2))
 
-def getExpenseDate():
-    expense_date_input = input("Please enter date of expense (Leave blank for Today): ")
+def getExpenseDate() -> str:
+    expense_date_input = input("Please enter date (MM/DD/YYYY) of Expense (Leave blank for Today): ")
 
     if expense_date_input == "":
         expense_date_input = datetime.now().strftime("%m/%d/%Y")
@@ -48,14 +46,13 @@ def getExpenseDate():
 
 # Log Savings Goals
 def getSavingsName() -> str:
-    savings_input = input("Please enter what you Savings Goal is: ")
-
-    return savings_input
+    return input("Please enter what you Savings Goal is: ")
 
 def getSavingsType() -> str:
-    savings_type_input = input("Please enter the type of Savings Goal (Vacation, Emergencies, etc...): ")
+    return input("Please enter the type of Savings Goal (Vacation, Emergencies, etc...): ")
 
-    return savings_type_input
+def getSavingsAmount() -> float:
+    return str(round(float(input("Please enter the Savings Goal amount (24421.45): ")), 2))
 
 def getSavingsStartDate():
     savings_start_date_input = input("Please enter start date of Savings Goal (Leave blank for Today): ")
@@ -66,9 +63,7 @@ def getSavingsStartDate():
     return savings_start_date_input
 
 def getSavingsEndDate():
-    savings_end_date_input = input("Please enter end date of Savings Goal (MM/DD/YYYY): ")
-
-    return savings_end_date_input
+    return input("Please enter end date of Savings Goal (MM/DD/YYYY): ")
 
 
 # --------------------------------------------- Reporting --------------------------------------------- #
@@ -84,9 +79,7 @@ def getSavingsEndDate():
 
 # Set monthly budget (Maybe for different categories and alerts when exceeding)
 def getMonthlyBudget():
-    monthly_budget_input = input("Please enter the monthly budget: ")
-
-    return monthly_budget_input
+    return input("Please enter the monthly budget: ")
 
 def getBudgetType():
     monthly_budget_type_input = input("Please enter the category for the budget (Leave blank if overall budget): ")

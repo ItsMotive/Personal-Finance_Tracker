@@ -1,18 +1,17 @@
-from Database import displayIncomeTable, displayExpenseTable, displaySavingsTable
+from Constants import INCOME_TABLE_NAME, SAVINGS_TABLE_NAME, EXPENSE_TABLE_NAME
+from Database import (
+    displayIncomeTable, displayExpenseTable, displaySavingsTable, 
+    addIncome, addExpense, addSavingsGoal
+)
 from Main_Features import (
-        getIncomeDate, 
-        getIncomeType,
-        getIncomeName,
-        getExpenseDate,
-        getExpenseName,
-        getExpenseType,
-        getSavingsName,
-        getSavingsType,
-        getSavingsStartDate,
-        getSavingsEndDate
+        getIncomeDate, getIncomeType, getIncomeName, getIncomeAmount, 
+        getExpenseDate, getExpenseName, getExpenseAmount, getExpenseType,
+        getSavingsName, getSavingsType, getSavingsAmount, getSavingsStartDate, getSavingsEndDate
 )
 
-# Test Display of Tables
+from Database_Queries import addIncomeQuery, addExpenseQuery, addSavingsQuery
+
+# ------------------------ Test Display of Tables ------------------------ #
 def testIncomeTableDisplay():
     print("\nIncome Table: \n")
     displayIncomeTable()
@@ -25,7 +24,7 @@ def testSavingsTableDisplay():
     print("\nSavings Table: \n")
     displaySavingsTable()
 
-# Income Functions
+# ------------------------ Income Functions ------------------------ #
 def testIncomeDateBlank():
     print("Date = ''\n")
     print(getIncomeDate() + "\n")
@@ -36,7 +35,19 @@ def testIncomeType():
 def testIncomeName():
     print(getIncomeName() + "\n")
 
-# Expense Functions
+def testIncomeAmount():
+    print(getIncomeAmount())
+
+def testAddingIncomeToTable():
+    print("\nBefore Table:")
+    displayIncomeTable()
+
+    addIncome()
+
+    print("\nAfter Table:")
+    displayIncomeTable()
+
+# ------------------------ Expense Functions ------------------------ #
 def testExpenseDateBlank():
     print("Date = ''\n")
     print(getExpenseDate() + "\n")
@@ -47,12 +58,27 @@ def testExpenseType():
 def testExpenseName():
     print(getExpenseName() + "\n")
 
-# Savings Functions
+def testIncomeAmount():
+    print(getExpenseAmount())
+
+def testAddingExpenseToTable():
+    print("\nBefore Table:")
+    displayExpenseTable()
+
+    addExpense()
+
+    print("\nAfter Table:")
+    displayExpenseTable()
+
+# ------------------------ Savings Functions ------------------------ #
 def testSavingsName():
     print(getSavingsName() + "\n")
 
 def testSavingsType():
     print(getSavingsType() + "\n")
+
+def testSavingsAmount():
+    print(getSavingsAmount() + "\n")
 
 def testSavingsStartDate():
     print(getSavingsStartDate() + "\n")
@@ -60,3 +86,27 @@ def testSavingsStartDate():
 def testSavingsEndDate():
     print(getSavingsEndDate() + "\n")
 
+def testAddingSavingsToTable():
+    print("\nBefore Table:")
+    displaySavingsTable()
+
+    addSavingsGoal()
+
+    print("\nAfter Table:")
+    displaySavingsTable()
+
+# ------------------------ Database Query Functions ------------------------ #
+def testAddIncomeQueryReturn():
+    print(addIncomeQuery(getIncomeName(), getIncomeType(), getIncomeAmount(), getIncomeDate(), INCOME_TABLE_NAME))
+
+def testAddIncomeQueryReturnManual():
+    query = addIncomeQuery("Hello", "Source", "123.45", '12/12/1212', INCOME_TABLE_NAME)
+
+    print(query)
+
+def testAddSavingsQueryReturn():
+    print(addSavingsQuery(getSavingsName(), getSavingsType(), getSavingsAmount(), getSavingsStartDate(), getSavingsEndDate(), SAVINGS_TABLE_NAME))
+
+# ------------------------ Execution of Test ------------------------ #
+
+# testAddingSavingsToTable()
