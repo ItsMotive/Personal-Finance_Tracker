@@ -2,20 +2,21 @@ import psycopg2 # type: ignore
 from psycopg2 import sql # type: ignore
 import pandas as pd
 from prettytable import PrettyTable # type: ignore
-from Main_Features import (
+
+from .Main_Features import (
     getIncomeName, 
     getIncomeDate,
     getIncomeType,
     getIncomeAmount
 )
 
-from Credentials import USERNAME, PASSWORD, DATABASE_NAME, HOST, PORT
-from Constants import (
+from .Credentials import USERNAME, PASSWORD, DATABASE_NAME, HOST, PORT
+from .Constants import (
     SELECT_INCOME_QUERY, SELECT_EXPENSE_QUERY, SELECT_SAVINGS_QUERY, 
     INCOME_TABLE_NAME, EXPENSE_TABLE_NAME, SAVINGS_TABLE_NAME
 )
-from Database_Queries import addIncomeQuery, addExpenseQuery, addSavingsQuery
-from Main_Features import (
+from .Database_Queries import addIncomeQuery, addExpenseQuery, addSavingsQuery
+from .Main_Features import (
     getIncomeName, getIncomeType, getIncomeAmount, getIncomeDate, 
     getExpenseName, getExpenseType, getExpenseAmount, getExpenseDate,
     getSavingsName, getSavingsType, getSavingsAmount, getSavingsStartDate, getSavingsEndDate

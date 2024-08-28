@@ -92,9 +92,4 @@ def getBudgetType():
 # --------------------------------------------- Recurring Transactions --------------------------------------------- #
 
 def getRecurringTransactions():
-    if expense_date == expense_date + 7:
-
-        if expense_name == expense_name:
-
-            pass
-            # Then log recurring payments somewhere
+    pass
