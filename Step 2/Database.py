@@ -1,7 +1,7 @@
-import psycopg2
-from psycopg2 import sql
+import psycopg2 # type: ignore
+from psycopg2 import sql # type: ignore
 import pandas as pd
-from prettytable import PrettyTable
+from prettytable import PrettyTable # type: ignore
 from Main_Features import (
     getIncomeName, 
     getIncomeDate,

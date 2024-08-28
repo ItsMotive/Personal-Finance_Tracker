@@ -109,4 +109,4 @@ def testAddSavingsQueryReturn():
 
 # ------------------------ Execution of Test ------------------------ #
 
-# testAddingSavingsToTable()
+testAddingSavingsToTable()
