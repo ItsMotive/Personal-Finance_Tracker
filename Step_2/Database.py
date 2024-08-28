@@ -157,7 +157,7 @@ def displaySavingsTable() -> None:
         cur.close()
         conn.close()
 
-# ------------------------------------ Table Actions ------------------------------------ #
+# ------------------------------------ Table Actions (FOR COMMAND PROMPT INPUT) ------------------------------------ #
 
 def addIncome():
     income_name, income_type, income_amount, income_date = getIncomeName(), getIncomeType(), getIncomeAmount(), getIncomeDate()
@@ -216,6 +216,91 @@ def addExpense():
         conn.close()
 
 def addSavingsGoal():
+    savings_name, savings_type, savings_amount, start_date, end_date = getSavingsName(), getSavingsType(), getSavingsAmount(), getSavingsStartDate(), getSavingsEndDate()
+
+    # Establish a connection to the PostgreSQL database
+    conn = DB_Connection()
+
+    # Create a cursor object to execute SQL queries
+    cur = conn.cursor()
+
+    try:
+        print("Connection successful!")
+
+        # Execute a query to select data from the table
+        cur.execute(addSavingsQuery(savings_name, savings_type, savings_amount, start_date, end_date, SAVINGS_TABLE_NAME))
+
+        conn.commit()
+
+        print("Adding Successful")
+
+    except Exception as e:
+        # Display error message
+        print("Error Occurred")
+
+    finally:
+        # Close the cursor and connection
+        cur.close()
+        conn.close()
+
+# ------------------------------------ Table Actions (FOR GUI PROMPT INPUT) ------------------------------------ #
+
+def addIncomeGUI(income_name: str, income_type: str, income_amount: str, income_date: str):
+
+    # Establish a connection to the PostgreSQL database
+    conn = DB_Connection()
+
+    # Create a cursor object to execute SQL queries
+    cur = conn.cursor()
+
+    try:
+        print("Connection successful!")
+
+        # Execute a query to select data from the table
+        cur.execute(addIncomeQuery(income_name, income_type, income_amount, income_date, INCOME_TABLE_NAME))
+
+        conn.commit()
+
+        print("Adding Successful")
+
+    except Exception as e:
+        # Display error message
+        print("Error Occurred")
+
+    finally:
+        # Close the cursor and connection
+        cur.close()
+        conn.close()
+
+def addExpenseGUI():
+    expense_name, expense_type, expense_amount, expense_date = getExpenseName(), getExpenseType(), getExpenseAmount(), getExpenseDate()
+
+    # Establish a connection to the PostgreSQL database
+    conn = DB_Connection()
+
+    # Create a cursor object to execute SQL queries
+    cur = conn.cursor()
+
+    try:
+        print("Connection successful!")
+
+        # Execute a query to select data from the table
+        cur.execute(addExpenseQuery(expense_name, expense_type, expense_amount, expense_date, EXPENSE_TABLE_NAME))
+
+        conn.commit()
+
+        print("Adding Successful")
+
+    except Exception as e:
+        # Display error message
+        print("Error Occurred")
+
+    finally:
+        # Close the cursor and connection
+        cur.close()
+        conn.close()
+
+def addSavingsGoalGUI():
     savings_name, savings_type, savings_amount, start_date, end_date = getSavingsName(), getSavingsType(), getSavingsAmount(), getSavingsStartDate(), getSavingsEndDate()
 
     # Establish a connection to the PostgreSQL database

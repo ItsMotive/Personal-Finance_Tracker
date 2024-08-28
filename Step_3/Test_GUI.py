@@ -1,7 +1,9 @@
 from GUI_Table_Setup import (
     grabIncomeTableData, grabExpenseTableData, grabSavingTableData,
-    incomeTableGUI, expenseTableGUI, savingsTableGUI
+    incomeTableGUI, expenseTableGUI, savingsTableGUI,
+    incomeInputDataGUI
 )
+from GUI_Setup import generateGUI
 
 # Grabbing Data Test
 def testIncomeDataGrab():
@@ -27,5 +29,10 @@ def testSavingsDataGrab():
 def testSavingsTableDisplayGUI():
     savingsTableGUI()
 
-testExpenseTableDisplayGUI()
-testSavingsTableDisplayGUI()
+def testIncomeInputGUI():
+    incomeInputDataGUI()
+
+def testOverallGUI():
+    generateGUI()
+
+testOverallGUI()

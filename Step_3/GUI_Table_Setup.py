@@ -1,3 +1,4 @@
+from datetime import datetime
 import tkinter as tk
 from tkinter import ttk
 import psycopg2 # type: ignore
@@ -11,7 +12,7 @@ import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from Step_2.Constants import SELECT_INCOME_QUERY, SELECT_EXPENSE_QUERY, SELECT_SAVINGS_QUERY
-from Step_2.Database import DB_Connection
+from Step_2.Database import DB_Connection, addIncomeGUI
 
 # ---------------------------- Display Table GUI ---------------------------- #
 
@@ -210,3 +211,76 @@ def grabSavingTableData() -> list:
         conn.close()
 
         return rows
+
+
+# ---------------------------- Input Data into Table ---------------------------- #
+
+def incomeInputDataGUI():
+    # Create the main window
+    root = tk.Tk()
+    
+    # Create Title for GUI Application
+    root.title("Adding Income")
+
+    # Create the Label and Entry widgets using grid layout for Income Name
+    income_name_label = tk.Label(root, text="Enter Income Name:")
+    income_name_label.grid(row=0, column=0, padx=10, pady=10)
+
+    income_name_box = tk.Entry(root, width=40)
+    income_name_box.grid(row=0, column=1, padx=10, pady=10)
+
+    # Create the Label and Entry widgets using grid layout for Income Type
+    income_type_label = tk.Label(root, text="Enter Income Type:")
+    income_type_label.grid(row=1, column=0, padx=10, pady=10)
+
+    income_type_box = tk.Entry(root, width=40)
+    income_type_box.grid(row=1, column=1, padx=10, pady=10)
+
+    # Create the Label and Entry widgets using grid layout for Income Amount
+    income_amount_label = tk.Label(root, text="Enter Income Amount:")
+    income_amount_label.grid(row=2, column=0, padx=10, pady=10)
+
+    income_amount_box = tk.Entry(root, width=40)
+    income_amount_box.grid(row=2, column=1, padx=10, pady=10)
+
+    # Create the Label and Entry widgets using grid layout for Income Date
+    income_date_label = tk.Label(root, text="Enter Income Date (MM/DD/YYYY) (*Leave blank for today): ")
+    income_date_label.grid(row=3, column=0, padx=10, pady=10)
+
+    income_date_box = tk.Entry(root, width=40)
+    income_date_box.grid(row=3, column=1, padx=10, pady=10)
+
+    def submit_income():
+        # Get the text from the input box
+        income_name_input = income_name_box.get()
+        income_type_input = income_type_box.get()
+        income_amount_input = income_amount_box.get()
+        income_date_input = income_date_box.get()
+
+        if income_date_input == '':
+            income_date_input = datetime.now().strftime("%m/%d/%Y")
+
+        # Display the text in a label
+        if income_name_input == '':
+            result_label.config(text="Income Name is required!")
+
+        elif income_type_input == '':
+            result_label.config(text="Income Type is required!")
+
+        elif income_amount_input == '':
+            result_label.config(text="Income Amount is required!")
+
+        else:
+            addIncomeGUI(income_name_input, income_type_input, income_amount_input, income_date_input)
+            result_label.config(text=f"Submission Successful! \n Income Name: {income_name_input} \n Income Type: {income_type_input} \n Income Amount: {income_amount_input} \n Income Date: {income_date_input}")
+
+    # Create a Submit button widget
+    submit_button = tk.Button(root, text="Submit", command=submit_income)
+    submit_button.grid(row=4, column=0, columnspan=2, pady=10)
+
+    # Create a Submit label widget to display the result
+    result_label = tk.Label(root, text="Input will be displayed here")
+    result_label.grid(row=5, column=0, columnspan=2, pady=10)
+
+    # Run the Tkinter event loop
+    root.mainloop()
