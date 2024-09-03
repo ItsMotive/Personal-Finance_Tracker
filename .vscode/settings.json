@@ -1,9 +1,14 @@
 {
     "cSpell.words": [
+        "autopct",
         "columnspan",
+        "figsize",
+        "labeldistance",
         "padx",
         "pady",
         "prettytable",
-        "psycopg"
+        "psycopg",
+        "xlabel",
+        "ylabel"
     ]
 }

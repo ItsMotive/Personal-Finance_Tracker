@@ -4,7 +4,7 @@ import sys
 import os
 
 from GUI_Table_Setup import (
-    incomeTableGUI, expenseTableGUI, savingsTableGUI,
+    graphOptions, incomeTableGUI, expenseTableGUI, savingsTableGUI,
     incomeInputDataGUI, expenseInputDataGUI, savingsInputDataGUI
 )
 
@@ -58,11 +58,11 @@ def generateGUI():
     display_income_table_button.grid(row=2, column=0, pady=10, padx=5)
 
     # Display Income Input button
-    display_income_input_button = tk.Button(root, text="Add Income Entry", command=lambda: incomeInputDataGUI())
+    display_income_input_button = tk.Button(root, text="Add Income Entry", command=lambda: incomeInputDataGUI(root))
     display_income_input_button.grid(row=2, column=1, pady=10, padx=5)
 
     # Display Income Report button
-    display_income_graph_button = tk.Button(root, text="View Income Report", command= print("WIP"))
+    display_income_graph_button = tk.Button(root, text="View Income Report", command=lambda: graphOptions(root, "income"))
     display_income_graph_button.grid(row=2, column=2, pady=10, padx=5)
 
     # --------------------- Expense Info --------------------- #
@@ -72,11 +72,11 @@ def generateGUI():
     display_expense_table_button.grid(row=3, column=0, pady=10, padx=5)
 
     # Display Expense Input button
-    display_expense_input_button = tk.Button(root, text="Add Expense Entry", command=lambda: expenseInputDataGUI())
+    display_expense_input_button = tk.Button(root, text="Add Expense Entry", command=lambda: expenseInputDataGUI(root))
     display_expense_input_button.grid(row=3, column=1, pady=10, padx=5)
 
     # Display Expense Report button
-    display_expense_graph_button = tk.Button(root, text="View Expense Report", command= print("WIP"))
+    display_expense_graph_button = tk.Button(root, text="View Expense Report", command=lambda: graphOptions(root, "expense"))
     display_expense_graph_button.grid(row=3, column=2, pady=10, padx=5)
 
     # --------------------- Savings Info --------------------- #
@@ -86,11 +86,11 @@ def generateGUI():
     display_savings_table_button.grid(row=4, column=0, pady=10, padx=5)
 
     # Display Savings Input button
-    display_savings_input_button = tk.Button(root, text="Add Savings Entry", command=lambda: savingsInputDataGUI())
+    display_savings_input_button = tk.Button(root, text="Add Savings Entry", command=lambda: savingsInputDataGUI(root))
     display_savings_input_button.grid(row=4, column=1, pady=10, padx=5)
 
     # Display Savings Report button
-    display_savings_graph_button = tk.Button(root, text="View Savings Report", command= print("WIP"))
+    display_savings_graph_button = tk.Button(root, text="View Savings Report", command=lambda: print("WIP"))
     display_savings_graph_button.grid(row=4, column=2, pady=10, padx=5)
 
     # --------------------- Other --------------------- #

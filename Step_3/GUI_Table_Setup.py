@@ -1,12 +1,15 @@
 from datetime import datetime
 import tkinter as tk
 from tkinter import Toplevel, ttk
+import tkinter
 import psycopg2
 from psycopg2 import sql
 import pandas as pd
 
 import sys
 import os
+
+from Graphs import pieGraph, barGraph
 
 # Add the parent directory of Step_2 to sys.path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -16,7 +19,7 @@ from Step_2.Database import DB_Connection, addIncomeGUI, addExpenseGUI, addSavin
 
 # ---------------------------- Display Table GUI ---------------------------- #
 
-def incomeTableGUI(root):
+def incomeTableGUI(root: tkinter.Tk) -> None:
     # Create the main window
     income_window = Toplevel(root)
     income_window.title("Income Table")
@@ -54,7 +57,7 @@ def incomeTableGUI(root):
     # Add the Treeview to the window
     tree.pack(pady=10, padx=10)
 
-def expenseTableGUI(root):
+def expenseTableGUI(root: tkinter.Tk) -> None:
     # Create the main window
     expense_window = Toplevel(root)
     expense_window.title("Expense Table")
@@ -92,10 +95,7 @@ def expenseTableGUI(root):
     # Add the Treeview to the window
     tree.pack(pady=10, padx=10)
 
-    # Start the Tkinter event loop
-    root.mainloop()
-
-def savingsTableGUI(root):
+def savingsTableGUI(root: tkinter.Tk) -> None:
     # Create the main window
     savings_window = Toplevel(root)
     savings_window.title("Savings Goals Table")
@@ -136,8 +136,6 @@ def savingsTableGUI(root):
     # Add the Treeview to the window
     tree.pack(pady=10, padx=10)
 
-    # Start the Tkinter event loop
-    root.mainloop()
 
 # ---------------------------- Grab Table Data ---------------------------- #
 
@@ -225,39 +223,39 @@ def grabSavingTableData() -> list:
 
 # ---------------------------- Input Data into Table ---------------------------- #
 
-def incomeInputDataGUI():
+def incomeInputDataGUI(root: tkinter.Tk) -> None:
     # Create the main window
-    root = tk.Tk()
+    income_input_window = Toplevel(root)
     
     # Create Title for GUI Application
-    root.title("Adding Income")
+    income_input_window.title("Adding Income")
 
     # Create the Label and Entry widgets using grid layout for Income Name
-    income_name_label = tk.Label(root, text="Enter Income Name:")
+    income_name_label = tk.Label(income_input_window, text="Enter Income Name:")
     income_name_label.grid(row=0, column=0, padx=10, pady=10)
 
-    income_name_box = tk.Entry(root, width=40)
+    income_name_box = tk.Entry(income_input_window, width=40)
     income_name_box.grid(row=0, column=1, padx=10, pady=10)
 
     # Create the Label and Entry widgets using grid layout for Income Type
-    income_type_label = tk.Label(root, text="Enter Income Type:")
+    income_type_label = tk.Label(income_input_window, text="Enter Income Type:")
     income_type_label.grid(row=1, column=0, padx=10, pady=10)
 
-    income_type_box = tk.Entry(root, width=40)
+    income_type_box = tk.Entry(income_input_window, width=40)
     income_type_box.grid(row=1, column=1, padx=10, pady=10)
 
     # Create the Label and Entry widgets using grid layout for Income Amount
-    income_amount_label = tk.Label(root, text="Enter Income Amount:")
+    income_amount_label = tk.Label(income_input_window, text="Enter Income Amount:")
     income_amount_label.grid(row=2, column=0, padx=10, pady=10)
 
-    income_amount_box = tk.Entry(root, width=40)
+    income_amount_box = tk.Entry(income_input_window, width=40)
     income_amount_box.grid(row=2, column=1, padx=10, pady=10)
 
     # Create the Label and Entry widgets using grid layout for Income Date
-    income_date_label = tk.Label(root, text="Enter Income Date (MM/DD/YYYY) (*Leave blank for today): ")
+    income_date_label = tk.Label(income_input_window, text="Enter Income Date (MM/DD/YYYY) (*Leave blank for today): ")
     income_date_label.grid(row=3, column=0, padx=10, pady=10)
 
-    income_date_box = tk.Entry(root, width=40)
+    income_date_box = tk.Entry(income_input_window, width=40)
     income_date_box.grid(row=3, column=1, padx=10, pady=10)
 
     def submit_income():
@@ -285,19 +283,16 @@ def incomeInputDataGUI():
             result_label.config(text=f"Submission Successful! \n Income Name: {income_name_input} \n Income Type: {income_type_input} \n Income Amount: {income_amount_input} \n Income Date: {income_date_input}")
 
     # Create a Submit button widget
-    submit_button = tk.Button(root, text="Submit", command=submit_income)
+    submit_button = tk.Button(income_input_window, text="Submit", command=submit_income)
     submit_button.grid(row=4, column=0, columnspan=2, pady=10)
 
     # Create a Submit label widget to display the result
-    result_label = tk.Label(root, text="Input will be displayed here")
+    result_label = tk.Label(income_input_window, text="Input will be displayed here")
     result_label.grid(row=5, column=0, columnspan=2, pady=10)
 
-    # Run the Tkinter event loop
-    root.mainloop()
-
-def expenseInputDataGUI():
+def expenseInputDataGUI(root: tkinter.Tk) -> None:
     # Create the main window
-    root = tk.Tk()
+    root = Toplevel(root)
     
     # Create Title for GUI Application
     root.title("Adding Expense")
@@ -362,12 +357,9 @@ def expenseInputDataGUI():
     result_label = tk.Label(root, text="Input will be displayed here")
     result_label.grid(row=5, column=0, columnspan=2, pady=10)
 
-    # Run the Tkinter event loop
-    root.mainloop()
-
-def savingsInputDataGUI():
+def savingsInputDataGUI(root: tkinter.Tk) -> None:
     # Create the main window
-    root = tk.Tk()
+    root = Toplevel(root)
     
     # Create Title for GUI Application
     root.title("Adding Savings Goal")
@@ -443,9 +435,6 @@ def savingsInputDataGUI():
     result_label = tk.Label(root, text="Input will be displayed here")
     result_label.grid(row=6, column=0, columnspan=2, pady=10)
 
-    # Run the Tkinter event loop
-    root.mainloop()
-
 # ---------------------------- Table Functions ---------------------------- #
 
 def sort_column(tree, col, reverse):
@@ -512,3 +501,173 @@ def convert_type(value, col):
     else:
         return value  
     
+
+def graphOptions(root: tkinter.Tk, type: str):
+
+    if type == "income":
+
+        # Create the new Toplevel window
+        graph_options_window = Toplevel(root)
+        graph_options_window.title("Select Graph Type")
+        graph_options_window.geometry("200x200")
+
+        # Define options for the dropdown
+        options = ["Pie (Percentage Comparison)", "Bar Graph "]
+
+        # Create a Tkinter variable to store the selected value
+        selected_value = tk.StringVar(graph_options_window)
+
+        # Default Pie Graph
+        selected_value.set(options[0])
+
+        # Create the dropdown menu with the correct parent window
+        dropdown = ttk.OptionMenu(graph_options_window, selected_value, options[0], *options)
+        dropdown.pack(pady=20)
+
+        # Create a button to trigger an action when an option is selected
+        select_button = tk.Button(graph_options_window, text="Select Graph", command=lambda: generateIncomeGraph(str(selected_value.get()), root))
+        select_button.pack(pady=10)
+
+    elif type == "expense":
+
+        # Create the new Toplevel window
+        graph_options_window = Toplevel(root)
+        graph_options_window.title("Select Graph Type")
+        graph_options_window.geometry("200x200")
+
+        # Define options for the dropdown
+        options = ["Pie (Percentage Comparison)", "Bar Graph "]
+
+        # Create a Tkinter variable to store the selected value
+        selected_value = tk.StringVar(graph_options_window)
+
+        # Default Pie Graph
+        selected_value.set(options[0])
+
+        # Create the dropdown menu with the correct parent window
+        dropdown = ttk.OptionMenu(graph_options_window, selected_value, options[0], *options)
+        dropdown.pack(pady=20)
+
+        # Create a button to trigger an action when an option is selected
+        select_button = tk.Button(graph_options_window, text="Select Graph", command=lambda: generateExpenseGraph(str(selected_value.get()), root))
+        select_button.pack(pady=10)
+
+def generateIncomeGraph(graph_type: str, root: tkinter.Tk):
+    data = grabIncomeTableData()
+
+    # Dictionary to store the sums
+    sums = {}
+
+    if "pie" in graph_type.lower():
+        for array in data:
+
+            # Getting Income Type
+            key = array[1]  
+
+            # Getting the Income Amount
+            value = array[2]  
+
+            # Check if the key is already in the dictionary
+            if key in sums:
+
+                # If the Income Type is present, add the Income Amount
+                sums[key] += value
+
+            else:
+
+                # Else, create an initial value for Income Type
+                sums[key] = value
+
+        pieGraph(sums, "Income Pie Graph")
+
+    elif "bar" in graph_type.lower():
+
+        # Get the current year
+        current_year = datetime.now().strftime('%Y')
+
+        for array in data:
+
+            # Getting Income Date and format it to 'YYYY-MM'
+            key = array[3].strftime('%Y-%m')
+
+            # Getting the Income Amount
+            value = array[2]
+
+            # Check if the key is from the current year
+            if key.startswith(current_year):
+                # Check if the key is already in the dictionary
+                if key in sums:
+                    # If the Income Type is present, add the Income Amount
+                    sums[key] += value
+                else:
+                    # Else, create an initial value for Income Type
+                    sums[key] = value
+
+        # Convert the dictionary items to a list and sort by date
+        sorted_items = sorted(sums.items(), key=lambda item: datetime.strptime(item[0], '%Y-%m'))
+
+        # Convert the sorted list of tuples back into a dictionary
+        sums = dict(sorted_items)
+
+        # Call the function to generate the bar graph
+        barGraph(sums, f'Income Bar Graph for {current_year}', "Income Totals", "Income Month")
+
+def generateExpenseGraph(graph_type: str, root: tkinter.Tk):
+    data = grabExpenseTableData()
+
+    # Dictionary to store the sums
+    sums = {}
+
+    if "pie" in graph_type.lower():
+        for array in data:
+
+            # Getting Income Type
+            key = array[1]  
+
+            # Getting the Income Amount
+            value = array[2]  
+
+            # Check if the key is already in the dictionary
+            if key in sums:
+
+                # If the Income Type is present, add the Income Amount
+                sums[key] += value
+
+            else:
+
+                # Else, create an initial value for Income Type
+                sums[key] = value
+
+        pieGraph(sums, "Expense Pie Graph")
+
+    elif "bar" in graph_type.lower():
+
+        # Get the current year
+        current_year = datetime.now().strftime('%Y')
+
+        for array in data:
+
+            # Getting Income Date and format it to 'YYYY-MM'
+            key = array[3].strftime('%Y-%m')
+
+            # Getting the Income Amount
+            value = array[2]
+
+            # Check if the key is from the current year
+            if key.startswith(current_year):
+                # Check if the key is already in the dictionary
+                if key in sums:
+                    # If the Income Type is present, add the Income Amount
+                    sums[key] += value
+                else:
+                    # Else, create an initial value for Income Type
+                    sums[key] = value
+
+        # Convert the dictionary items to a list and sort by date
+        sorted_items = sorted(sums.items(), key=lambda item: datetime.strptime(item[0], '%Y-%m'))
+
+        # Convert the sorted list of tuples back into a dictionary
+        sums = dict(sorted_items)
+
+        # Call the function to generate the bar graph
+        barGraph(sums, f'Expense Bar Graph for {current_year}', "Expense Totals", "Expense Month")
