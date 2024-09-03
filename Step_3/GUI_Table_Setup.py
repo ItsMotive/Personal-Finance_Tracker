@@ -317,7 +317,7 @@ def expenseInputDataGUI():
     expense_type_box.grid(row=1, column=1, padx=10, pady=10)
 
     # Create the Label and Entry widgets using grid layout for Expense Amount
-    expense_amount_label = tk.Label(root, text="Enter Income Amount:")
+    expense_amount_label = tk.Label(root, text="Enter Expense Amount:")
     expense_amount_label.grid(row=2, column=0, padx=10, pady=10)
 
     expense_amount_box = tk.Entry(root, width=40)
@@ -449,6 +449,7 @@ def savingsInputDataGUI():
 # ---------------------------- Table Functions ---------------------------- #
 
 def sort_column(tree, col, reverse):
+
     # Get all the rows (children) in the Treeview
     rows = tree.get_children('')
 
@@ -489,6 +490,7 @@ def sort_column(tree, col, reverse):
     tree.heading(col, command=lambda: sort_column(tree, col, not reverse))
 
 def convert_type(value, col):
+    
     # Define the column-specific data types
     if col == "Income Amount":
         try:
