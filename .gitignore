@@ -1,0 +1,10 @@
+# Byte-compiled / optimized files
+Step_2/__pycache__/
+Step_3/__pycache__/
+*.pyc
+
+# Credentials
+Step_2/Credentials.py
+
+# Virtual environment
+venv/
