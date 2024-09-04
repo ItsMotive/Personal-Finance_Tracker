@@ -1,5 +1,6 @@
 {
     "cSpell.words": [
+        "arange",
         "autopct",
         "columnspan",
         "figsize",
@@ -8,7 +9,11 @@
         "pady",
         "prettytable",
         "psycopg",
+        "textcoords",
         "xlabel",
+        "xticklabels",
+        "xticks",
+        "xytext",
         "ylabel"
     ]
 }

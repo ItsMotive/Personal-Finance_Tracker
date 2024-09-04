@@ -5,7 +5,8 @@ import os
 
 from GUI_Table_Setup import (
     graphOptions, incomeTableGUI, expenseTableGUI, savingsTableGUI,
-    incomeInputDataGUI, expenseInputDataGUI, savingsInputDataGUI
+    incomeInputDataGUI, expenseInputDataGUI, savingsInputDataGUI,
+    generateExpenseAndIncomeGraph
 )
 
 # # Add the parent directory of Step_2 to sys.path
@@ -21,7 +22,7 @@ def generateGUI():
     root.title("Personal Finance Tracker")
 
     # Setting Application Window Size
-    root.geometry("450x300")
+    root.geometry("600x300")
 
     root.grid_rowconfigure(0, weight=1)
     root.grid_rowconfigure(1, weight=1)
@@ -32,12 +33,13 @@ def generateGUI():
     root.grid_columnconfigure(0, weight=1)
     root.grid_columnconfigure(1, weight=1)
     root.grid_columnconfigure(2, weight=1)
+    root.grid_columnconfigure(3, weight=1)
 
 # --------------------- Main Window Info --------------------- #
 
     # Application Title Message
     label = tk.Label(root, text="Welcome to your Personal Finance Tracker!")
-    label.grid(row=0, column=0, columnspan=3, pady=20, sticky="n")
+    label.grid(row=0, column=0, columnspan=4, pady=20, sticky="n")
 
     # Table Display Header
     header_table_display_label = tk.Label(root, text="Table Displays")
@@ -50,6 +52,10 @@ def generateGUI():
     # Reports Header
     header_table_entry_label = tk.Label(root, text="Reports")
     header_table_entry_label.grid(row=1, column=2, pady=10, padx=5)
+
+    # Comparison Graph Header
+    header_table_entry_label = tk.Label(root, text="Comparisons")
+    header_table_entry_label.grid(row=1, column=3, pady=10, padx=5)
 
     # --------------------- Income Info --------------------- #
 
@@ -92,6 +98,12 @@ def generateGUI():
     # Display Savings Report button
     display_savings_graph_button = tk.Button(root, text="View Savings Report", command=lambda: print("WIP"))
     display_savings_graph_button.grid(row=4, column=2, pady=10, padx=5)
+
+    # --------------------- Comparison Info --------------------- #
+
+    # Display Comparison Table button
+    display_savings_table_button = tk.Button(root, text="Display Income vs Expense Report", command=lambda: generateExpenseAndIncomeGraph())
+    display_savings_table_button.grid(row=2, column=3, pady=10, padx=5)
 
     # --------------------- Other --------------------- #
 
