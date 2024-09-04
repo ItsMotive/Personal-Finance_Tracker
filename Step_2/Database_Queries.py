@@ -2,14 +2,14 @@
 
 def addIncomeQuery(name: str, source: str, amount: float, date: str, table_name:str):
     query = "INSERT INTO " + table_name + \
-        "(\"Name\", \"Source\", \"Amount\", \"Date\") VALUES ('" + \
+        "(\"name\", \"source\", \"amount\", \"date\") VALUES ('" + \
             name + "', '" + source + "', " + amount + ", '" + date + "')"
 
     return query
 
 def addExpenseQuery(name: str, source: str, amount: float, date: str, table_name:str):
     query = "INSERT INTO " + table_name + \
-        "(\"Name\", \"Source\", \"Amount\", \"Date\") VALUES ('" + \
+        "(\"name\", \"source\", \"amount\", \"date\") VALUES ('" + \
             name + "', '" + source + "', " + amount + ", '" + date + "')"
 
     return query

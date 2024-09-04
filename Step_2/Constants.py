@@ -1,9 +1,9 @@
 # ------------ Variables ------------ #
 
-INCOME_TABLE_NAME = "public.\"Test_Income_Table\""
-EXPENSE_TABLE_NAME = "public.\"Test_Expenses_Table\""
-SAVINGS_TABLE_NAME = "public.\"Test_Savings_Goals_Table\""
-SAVINGS_ENTRIES_TABLE_NAME = "public.\"Test_Savings_Goals_Table\""
+INCOME_TABLE_NAME = "public.\"income_table\""
+EXPENSE_TABLE_NAME = "public.\"expense_table\""
+SAVINGS_TABLE_NAME = "public.\"savings_goals_table\""
+SAVINGS_ENTRIES_TABLE_NAME = "public.\"savings_table\""
 
 # ------------ SQL Queries ------------ #
 
