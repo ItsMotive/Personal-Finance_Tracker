@@ -59,6 +59,38 @@ A step-by-step guide to set up the development environment:
     ```
 3. Run the file and every necessary database should be seen in PgAdmin
 
+## GUI Interfaces
+- **Main Window**:
+
+    <img src="Screenshots/main%20window.PNG" alt="Main Window" width="500">
+
+
+- **Table Window**:
+
+    <img src="Screenshots/income%20table%20window.PNG" alt="Main Window" width="500">
+
+
+- **Table Entry Window**:
+
+    <img src="Screenshots/income%20entry%20window.PNG" alt="Main Window" width="500">
+
+- **Report Selection Window**:
+
+    <img src="Screenshots/income%20report%20selection%20window.PNG" alt="Main Window" width="200">
+
+- **Pie Graph Report Window**:
+
+    <img src="Screenshots/income%20pie%20graph%20window.PNG" alt="Main Window" width="500">
+
+- **Bar Graph Report Window**:
+
+    <img src="Screenshots/income%20bar%20graph%20window.PNG" alt="Main Window" width="500">
+
+- **Bar Graph Comparison Report Window**:
+
+    <img src="Screenshots/comparison%20bar%20graph%20window.PNG" alt="Main Window" width="500">
+
+
 ## Running the tests
 
 **WIP**
