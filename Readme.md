@@ -46,7 +46,7 @@ A step-by-step guide to set up the development environment:
     ```
 
 ### Setting up PostgreSQL server
-1. Install [PostgreSQL](https://www.postgresql.org/) and [PgAdmin](#https://www.pgadmin.org/)
+1. Install [PostgreSQL](https://www.postgresql.org/) and [PgAdmin](https://www.pgadmin.org/)
 2. Open up [Database_Table_Creation_Script.py](/DB_Setup/Database_Table_Creation_Script.py) and update **initialSetup()** function with your information:
     ```
     connection = psycopg2.connect(
@@ -77,10 +77,10 @@ To deploy this project on a live system:
 
 ## Built With
 
-* [Tkinter](#https://docs.python.org/3/library/tkinter.html) - GUI Framework
-* [PostgreSQL](#https://www.postgresql.org/) - Database for storing financial data
-* [PgAdmin](#https://www.pgadmin.org/) - Visually see database
-* [Matplotlib](#https://matplotlib.org/) - Libraries for data visualization
+* [Tkinter](https://docs.python.org/3/library/tkinter.html) - GUI Framework
+* [PostgreSQL](https://www.postgresql.org/) - Database for storing financial data
+* [PgAdmin](https://www.pgadmin.org/) - Visually see database
+* [Matplotlib](https://matplotlib.org/) - Libraries for data visualization
 
 
 ## Versioning
