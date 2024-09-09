@@ -64,7 +64,7 @@ A step-by-step guide to set up the development environment:
 2. Open up [Database_Table_Creation_Script.py](/DB_Setup/Database_Table_Creation_Script.py) and update **initialSetup()** function with your information:
     ```
     connection = psycopg2.connect(
-            dbname=Your Database Name,
+            dame=Your Database Name,
             user=Your Database Username,
             password=Your Database Password,
             host=Your Database Host,
@@ -157,5 +157,5 @@ This section outlines features and improvements that are currently being worked 
 
 ## Acknowledgments
 
-* Thanks to open-source libraries like Tkinter and Matplotlib.
+* Thanks to open-source libraries like Tinter and Matplotlib.
 * Inspiration from financial tracking applications.
