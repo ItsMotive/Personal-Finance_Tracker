@@ -113,14 +113,6 @@ A step-by-step guide to set up the development environment:
 
 ***WIP***
 
-## Deployment
-
-To deploy this project on a live system:
-
-1. Install the required dependencies on the server.
-2. Set up the environment by configuring the database and paths.
-3. Use a task scheduler or cron job to run the Python script for generating reports on a regular basis.
-
 ## Built With
 
 * [Tkinter](https://docs.python.org/3/library/tkinter.html) - GUI Framework
