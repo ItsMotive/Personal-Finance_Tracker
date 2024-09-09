@@ -2,6 +2,20 @@
 
 The Personal Finance Tracker is a Python application that allows users to track their income, expenses, and savings goals. It provides a user-friendly graphical interface (GUI) for data entry, stores data using PostGres and PgAdmin, and generates visual reports using Matplotlib. The application helps users effectively manage their finances by offering tools for tracking income, expenses, savings progress, and budget adherence.
 
+## Table of Contents
+- [Getting Started](#getting-started)
+    - [Prerequisites](#prerequisites)
+    - [Installing](#installing)
+    - [PostgreSQL Setup](#setting-up-postgresql-server)
+- [GUI Interfaces](#gui-interfaces)
+- [Running Tests](#running-the-tests)
+- [Deployment](#deployment)
+- [Built With](#built-with)
+- [Versioning](#versioning)
+- [Roadmap](#roadmap)
+- [Author](#authors)
+- [Acknowledgements](#acknowledgments)
+
 ## Getting Started
 
 These instructions will guide you through the setup of the project and getting it up and running on your local machine for development and testing.
