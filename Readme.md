@@ -61,7 +61,7 @@ A step-by-step guide to set up the development environment:
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
+**WIP**
 
 ### Break down into end to end tests
 
