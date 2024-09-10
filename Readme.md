@@ -146,6 +146,8 @@ This section outlines features and improvements that are currently being worked 
     - **Savings Goal Current Progress**: Users will be able to see current progress towards all goals
     - **Budgeting System**: Users will be able to set monthly budgets for different categories and receive alerts when exceeding them.
     - **Recurring Transactions**: Automatically log recurring income or expense transactions (e.g., rent, salary)
+    - **Manual Data Entry**: Users will be able to add/modify entries manually through a text document
+    - **Interest Calculator**: Users will be able to calculate future profits dependent on savings type (Compound, Simple, etc.)
 - **Upcoming Improvements**: 
     - Restructuring the project for a more efficient and organized directory structure.
     - Addressing any redundancies in code and improving performance where necessary.
