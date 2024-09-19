@@ -2,11 +2,16 @@
 Step_2/__pycache__/
 Step_3/__pycache__/
 personal_finance_tracker/src/__pycache__/
+personal_finance_tracker/src/gui/__pycache__/
+personal_finance_tracker/src/visualization/__pycache__/
 *.pyc
 
 # Credentials
 Step_2/Credentials.py
 personal_finance_tracker/src/Credentials.py
+
+# Testing Files (Current WIP)
+personal_finance_tracker/tests
 
 # Virtual environment
 venv/
