@@ -1,9 +1,13 @@
 from datetime import datetime
 import tkinter as tk
 from tkinter import Toplevel, ttk
+from tkinter import messagebox
 
 from src.utils import sort_column
 
+def show_error_popup(error: str):
+    # This function will trigger the error popup
+    messagebox.showerror("Error", error)
 
 def createInputWindow(root: tk.Tk, title: str, labels: list, entries: list, submit_callback: callable) -> None:
     # Create the main window
@@ -51,32 +55,36 @@ def createInputWindow(root: tk.Tk, title: str, labels: list, entries: list, subm
     result_label.grid(row=len(labels) + 1, column=0, columnspan=2, pady=10)
 
 def createTableGUI(root: tk.Tk, title: str, fetch_data_func: callable, columns: list) -> None:
-    # Create the main window
-    window = Toplevel(root)
-    window.title(title)
 
-    # Create a Treeview widget
-    tree = ttk.Treeview(window)
+    try: 
+        # Insert data
+        row_entries = fetch_data_func()
 
-    # Insert data
-    row_entries = fetch_data_func()
+        # Create the main window
+        window = Toplevel(root)
+        window.title(title)
 
-    # Define the columns
-    tree["columns"] = columns
+        # Create a Treeview widget
+        tree = ttk.Treeview(window)
 
-    # Format columns
-    tree.column("#0", width=0, stretch=tk.NO)  # Hide the first column (id)
-    for col in columns:
-        tree.column(col, anchor=tk.W, width=120)
+        # Define the columns
+        tree["columns"] = columns
 
-    # Create headings with sorting functionality
-    for col in tree["columns"]:
-        tree.heading(col, text=col, anchor=tk.W, command=lambda _col=col: sort_column(tree, _col, False))
+        # Format columns
+        tree.column("#0", width=0, stretch=tk.NO)  # Hide the first column (id)
+        for col in columns:
+            tree.column(col, anchor=tk.W, width=120)
 
-    # Insert Row Data
-    for row_entry in row_entries:
-        tree.insert("", tk.END, values=row_entry)
+        # Create headings with sorting functionality
+        for col in tree["columns"]:
+            tree.heading(col, text=col, anchor=tk.W, command=lambda _col=col: sort_column(tree, _col, False))
 
-    # Add the Treeview to the window
-    tree.pack(pady=10, padx=10, fill=tk.BOTH, expand=True)
+        # Insert Row Data
+        for row_entry in row_entries:
+            tree.insert("", tk.END, values=row_entry)
 
+        # Add the Treeview to the window
+        tree.pack(pady=10, padx=10, fill=tk.BOTH, expand=True)
+
+    except Exception as e:
+        show_error_popup(e)
