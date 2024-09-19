@@ -1,10 +1,12 @@
 # Byte-compiled / optimized files
 Step_2/__pycache__/
 Step_3/__pycache__/
+personal_finance_tracker/src/__pycache__/
 *.pyc
 
 # Credentials
 Step_2/Credentials.py
+personal_finance_tracker/src/Credentials.py
 
 # Virtual environment
 venv/
