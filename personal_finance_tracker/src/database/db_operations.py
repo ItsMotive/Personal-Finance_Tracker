@@ -2,9 +2,11 @@ import psycopg2
 import tkinter as tk
 from src.Credentials import USERNAME, PASSWORD, DATABASE_NAME, HOST, PORT
 from src.gui.GUIs import createInputWindow
-from src.database.SQL_Queries import EXPENSE_TABLE_NAME, INCOME_TABLE_NAME, SAVINGS_TABLE_NAME, addExpenseQuery, addIncomeQuery, addSavingsQuery
+from src.database.SQL_Queries import EXPENSE_TABLE_NAME, INCOME_TABLE_NAME, SAVINGS_TABLE_NAME, addExpenseQuery, addIncomeQuery, addSavingsGoalQuery
 
 def DB_Connection() -> None:
+
+    # Establish a connection to the PostgreSQL database
     conn = psycopg2.connect(
         dbname=DATABASE_NAME,
         user=USERNAME,
@@ -13,16 +15,15 @@ def DB_Connection() -> None:
         port=PORT,
     )
 
-    return conn
+    # Create a cursor object to execute SQL queries
+    cursor = conn.cursor()
+    return conn, cursor
 
-# Grab All Data from table
+# --------------------------- Grab Table Data Functions --------------------------- #
+
 def grabAllDatabaseData(query: str) -> list:
 
-    # Establish a connection to the PostgreSQL database
-    conn = DB_Connection()
-
-    # Create a cursor object to execute SQL queries
-    cur = conn.cursor()
+    conn, cur = DB_Connection()
 
     try:
         print("Connection successful!")
@@ -46,20 +47,17 @@ def grabAllDatabaseData(query: str) -> list:
 
         return rows
 
-# Add to Table
-def addToDatabaseGUI(query: callable, params: tuple, table_name: str):
+# --------------------------- Add to Table Functions --------------------------- #
 
-    # Establish a connection to the PostgreSQL database
-    conn = DB_Connection()
+def addToDatabaseGUI(query: callable, params: tuple):
 
-    # Create a cursor object to execute SQL queries
-    cur = conn.cursor()
+    conn, cur = DB_Connection()
 
     try:
         print("Connection successful!")
 
         # Execute the query with the provided parameters
-        cur.execute(query(*params, table_name))
+        cur.execute(query(), params)
 
         conn.commit()
 
@@ -77,13 +75,13 @@ def addToDatabaseGUI(query: callable, params: tuple, table_name: str):
         conn.close()
 
 def addIncomeCallback(name: str, source: str, amount: float, date: str):
-    addToDatabaseGUI(addIncomeQuery, (name, source, amount, date), INCOME_TABLE_NAME)
+    addToDatabaseGUI(addIncomeQuery, (name, source, amount, date))
 
 def addExpenseCallback(name: str, source: str, amount: float, date: str):
-    addToDatabaseGUI(addExpenseQuery, (name, source, amount, date), EXPENSE_TABLE_NAME)
+    addToDatabaseGUI(addExpenseQuery, (name, source, amount, date))
 
 def addSavingsCallback(name: str, source: str, amount: float, start_date: str, end_date: str):
-    addToDatabaseGUI(addSavingsQuery, (name, source, amount, start_date, end_date), SAVINGS_TABLE_NAME)
+    addToDatabaseGUI(addSavingsGoalQuery, (name, source, amount, start_date, end_date))
 
 def inputDataToTable(root: tk.Tk, label: list, gui_title: str, func: callable) -> None:
     entries = [tk.StringVar() for _ in label]

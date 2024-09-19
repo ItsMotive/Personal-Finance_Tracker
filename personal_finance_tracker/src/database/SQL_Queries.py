@@ -17,15 +17,14 @@ SELECT_SAVINGS_ENTRIES_QUERY = f"SELECT * FROM {SAVINGS_ENTRIES_TABLE_NAME};"
 
 # ------------ SQL Query Functions ------------ #
 
-def addIncomeQuery(name: str, source: str, amount: float, date: str, table_name: str):
-    query = f"INSERT INTO {table_name} (\"name\", \"source\", \"amount\", \"date\") VALUES ('{name}', '{source}', {amount}, '{date}')"
+def addIncomeQuery():
+    query = f'INSERT INTO {INCOME_TABLE_NAME} (\"name\", \"source\", \"amount\", \"date\") VALUES (%s, %s, %s, %s);'
     return query
 
-def addExpenseQuery(name: str, source: str, amount: float, date: str, table_name: str):
-    query = f"INSERT INTO {table_name} (\"name\", \"source\", \"amount\", \"date\") VALUES ('{name}', '{source}', {amount}, '{date}')"
+def addExpenseQuery():
+    query = f'INSERT INTO {EXPENSE_TABLE_NAME} (\"name\", \"source\", \"amount\", \"date\") VALUES (%s, %s, %s, %s);'
     return query
 
-def addSavingsQuery(name: str, source: str, amount: float, start_date: str, end_date: str, table_name: str):
-    query = f"INSERT INTO {table_name} (\"goal\", \"goal_type\", \"goal_amount\", \"start_date\", \"end_date\", \"status\") VALUES ('{name}', '{source}', {amount}, '{start_date}', '{end_date}', 'Active')"
+def addSavingsGoalQuery():
+    query = f"INSERT INTO {SAVINGS_TABLE_NAME} (\"goal\", \"goal_type\", \"goal_amount\", \"start_date\", \"end_date\", \"status\") VALUES (%s, %s, %s, %s, %s, 'Active');"
     return query
-

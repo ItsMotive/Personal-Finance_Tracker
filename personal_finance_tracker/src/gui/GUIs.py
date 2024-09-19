@@ -57,15 +57,19 @@ def createInputWindow(root: tk.Tk, title: str, labels: list, entries: list, subm
 def createTableGUI(root: tk.Tk, title: str, fetch_data_func: callable, columns: list) -> None:
 
     try: 
-        # Insert data
+        # Get data
         row_entries = fetch_data_func()
 
         # Create the main window
         window = Toplevel(root)
         window.title(title)
 
-        # Create a Treeview widget
-        tree = ttk.Treeview(window)
+        # Create a frame to hold the Treeview and Scrollbar
+        frame = ttk.Frame(window)
+        frame.pack(pady=10, padx=10, fill=tk.BOTH, expand=True)
+
+        # Create the Treeview widget
+        tree = ttk.Treeview(frame)
 
         # Define the columns
         tree["columns"] = columns
@@ -83,8 +87,15 @@ def createTableGUI(root: tk.Tk, title: str, fetch_data_func: callable, columns: 
         for row_entry in row_entries:
             tree.insert("", tk.END, values=row_entry)
 
+        # Create vertical scrollbar
+        vsb = ttk.Scrollbar(frame, orient="vertical", command=tree.yview)
+
+        # Configure the Treeview to use the scrollbar
+        tree.configure(yscrollcommand=vsb.set)
+
         # Add the Treeview to the window
         tree.pack(pady=10, padx=10, fill=tk.BOTH, expand=True)
+        vsb.pack(side=tk.RIGHT, fill=tk.Y)
 
     except Exception as e:
         show_error_popup(e)
