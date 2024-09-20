@@ -77,23 +77,23 @@ A step-by-step guide to set up the development environment:
 
 <table style="table-layout: fixed; width: 100%;">
     <tr>
-        <td style="text-align: center; width: 30%;">
+        <td style="text-align: center; width: 20%;">
             <img src="Screenshots/main_window.PNG" alt="Feature 1" width="150" height="150" />
             <p style="font-size: 12px;">Main Window</p>
         </td>
-        <td style="text-align: center; width: 30%;">
+        <td style="text-align: center; width: 20%;">
             <img src="Screenshots/main_income_window.PNG" alt="Feature 2" width="150" height="150" />
             <p style="font-size: 12px;">Main Income Window</p>
         </td>
-        <td style="text-align: center; width: 30%;">
+        <td style="text-align: center; width: 20%;">
             <img src="Screenshots/main_expense_window.PNG" alt="Feature 3" width="150" height="150" />
             <p style="font-size: 12px;">Main Expense Window</p>
         </td>
-        <td style="text-align: center; width: 30%;">
+        <td style="text-align: center; width: 20%;">
             <img src="Screenshots/main_savings_window.PNG" alt="Feature 4" width="150" height="150" />
             <p style="font-size: 12px;">Main Savings Window</p>
         </td>
-        <td style="text-align: center; width: 30%;">
+        <td style="text-align: center; width: 20%;">
             <img src="Screenshots/main_report_window.PNG" alt="Feature 5" width="150" height="150" />
             <p style="font-size: 12px;">Main Reports Window</p>
         </td>
@@ -123,7 +123,7 @@ A step-by-step guide to set up the development environment:
     <tr>
         <td style="text-align: center;">
             <img src="Screenshots/comparison_bar_graph_window.PNG" alt="Feature 11" width="150" height="150" />
-            <p style="font-size: 12px;">Income vs Expense Graph Example</p>
+            <p style="font-size: 10px;">Income vs Expense Graph Example</p>
         </td>
     </tr>
 </table>
