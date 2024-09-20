@@ -75,25 +75,25 @@ A step-by-step guide to set up the development environment:
 
 ## GUI Interfaces
 
-<table style="table-layout: fixed; width: 120%;">
+<table style="table-layout: fixed; width: 150%;">
     <tr>
-        <td style="text-align: center; width: 20%;">
+        <td style="text-align: center; width: 30%;">
             <img src="Screenshots/main_window.PNG" alt="Feature 1" width="600" height="250" />
             <p style="font-size: 12px;">Main Window</p>
         </td>
-        <td style="text-align: center; width: 20%;">
+        <td style="text-align: center; width: 30%;">
             <img src="Screenshots/main_income_window.PNG" alt="Feature 2" width="600" height="250" />
             <p style="font-size: 12px;">Main Income Window</p>
         </td>
-        <td style="text-align: center; width: 20%;">
+        <td style="text-align: center; width: 30%;">
             <img src="Screenshots/main_expense_window.PNG" alt="Feature 3" width="600" height="250" />
             <p style="font-size: 12px;">Main Expense Window</p>
         </td>
-        <td style="text-align: center; width: 20%;">
+        <td style="text-align: center; width: 30%;">
             <img src="Screenshots/main_savings_window.PNG" alt="Feature 4" width="600" height="250" />
             <p style="font-size: 12px;">Main Savings Window</p>
         </td>
-        <td style="text-align: center; width: 20%;">
+        <td style="text-align: center; width: 30%;">
             <img src="Screenshots/main_report_window.PNG" alt="Feature 5" width="600" height="250" />
             <p style="font-size: 12px;">Main Reports Window</p>
         </td>
