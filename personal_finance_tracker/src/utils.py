@@ -79,4 +79,4 @@ def convert_to_two_decimals(value):
         return formatted_value
     except ValueError:
         # Return None or an error message if conversion fails
-        return None
+        return value
