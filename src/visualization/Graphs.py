@@ -32,7 +32,7 @@ def pieGraph(sums: dict, graph_name: str):
     for i, percentage in enumerate(percentages):
 
         # Creates 'Other' Income Type
-        if percentage < 5:
+        if percentage < 1:
             other_value += type_values[i]
             other_percentage += percentage
 

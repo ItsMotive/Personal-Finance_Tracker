@@ -12,11 +12,13 @@
         "prettytable",
         "psycopg",
         "textcoords",
+        "textvariable",
         "Tkinter",
         "xlabel",
         "xticklabels",
         "xticks",
         "xytext",
-        "ylabel"
+        "ylabel",
+        "yscrollcommand"
     ]
 }

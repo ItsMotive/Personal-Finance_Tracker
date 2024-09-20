@@ -74,36 +74,59 @@ A step-by-step guide to set up the development environment:
 3. Run the file and every necessary database should be seen in PgAdmin
 
 ## GUI Interfaces
-- **Main Window**:
 
-    <img src="Screenshots/main%20window.PNG" alt="Main Window" width="500">
-
-
-- **Table Window**:
-
-    <img src="Screenshots/income%20table%20window.PNG" alt="Main Window" width="500">
-
-
-- **Table Entry Window**:
-
-    <img src="Screenshots/income%20entry%20window.PNG" alt="Main Window" width="500">
-
-- **Report Selection Window**:
-
-    <img src="Screenshots/income%20report%20selection%20window.PNG" alt="Main Window" width="200">
-
-- **Pie Graph Report Window**:
-
-    <img src="Screenshots/income%20pie%20graph%20window.PNG" alt="Main Window" width="500">
-
-- **Bar Graph Report Window**:
-
-    <img src="Screenshots/income%20bar%20graph%20window.PNG" alt="Main Window" width="500">
-
-- **Bar Graph Comparison Report Window**:
-
-    <img src="Screenshots/comparison%20bar%20graph%20window.PNG" alt="Main Window" width="500">
-
+<table style="table-layout: fixed; width: 100%;">
+    <tr>
+        <td style="text-align: center; width: 20%;">
+            <img src="assets/Screenshots/main_window.PNG" alt="Feature 1" width="150" height="150" />
+            <p style="font-size: 12px;">Main Window</p>
+        </td>
+        <td style="text-align: center; width: 20%;">
+            <img src="assets/Screenshots/main_income_window.PNG" alt="Feature 2" width="150" height="150" />
+            <p style="font-size: 12px;">Main Income Window</p>
+        </td>
+        <td style="text-align: center; width: 20%;">
+            <img src="assets/Screenshots/main_expense_window.PNG" alt="Feature 3" width="150" height="150" />
+            <p style="font-size: 12px;">Main Expense Window</p>
+        </td>
+        <td style="text-align: center; width: 20%;">
+            <img src="assets/Screenshots/main_savings_window.PNG" alt="Feature 4" width="150" height="150" />
+            <p style="font-size: 12px;">Main Savings Window</p>
+        </td>
+        <td style="text-align: center; width: 20%;">
+            <img src="assets/Screenshots/main_report_window.PNG" alt="Feature 5" width="150" height="150" />
+            <p style="font-size: 12px;">Main Reports Window</p>
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            <img src="assets/Screenshots/income_report_selection_window.PNG" alt="Feature 6" width="150" height="150" />
+            <p style="font-size: 12px;">Report Selection</p>
+        </td>
+        <td style="text-align: center;">
+            <img src="assets/Screenshots/income_bar_graph_window.PNG" alt="Feature 7" width="150" height="150" />
+            <p style="font-size: 12px;">Bar Graph Example</p>
+        </td>
+        <td style="text-align: center;">
+            <img src="assets/Screenshots/income_pie_graph_window.PNG" alt="Feature 8" width="150" height="150" />
+            <p style="font-size: 12px;">Pie Graph Example</p>
+        </td>
+        <td style="text-align: center;">
+            <img src="assets/Screenshots/income_table_window.PNG" alt="Feature 9" width="150" height="150" />
+            <p style="font-size: 12px;">Income Table Example</p>
+        </td>
+        <td style="text-align: center;">
+            <img src="assets/Screenshots/income_entry_window.PNG" alt="Feature 10" width="150" height="150" />
+            <p style="font-size: 12px;">Entry Form Example</p>
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            <img src="assets/Screenshots/comparison_bar_graph_window.PNG" alt="Feature 11" width="150" height="150" />
+            <p style="font-size: 10px;">Income vs Expense Graph Example</p>
+        </td>
+    </tr>
+</table>
 
 ## Running the tests
 
