@@ -46,3 +46,28 @@ SAVINGS_TABLE_HEADERS = [
         "Goal End Date", 
         "Active"
 ]
+
+# ----------------- Modify Table Headers ----------------- #
+
+MODIFY_INCOME_TABLE_HEADERS = [
+        "name",
+        "source",
+        "amount",
+        "date"
+]
+
+MODIFY_EXPENSE_TABLE_HEADERS = [
+        "name",
+        "source",
+        "amount",
+        "date"
+]
+
+MODIFY_SAVINGS_TABLE_HEADERS = [
+        "Goal Name", 
+        "Goal Type", 
+        "Goal Amount", 
+        "Goal Start Date", 
+        "Goal End Date", 
+        "Active"
+]
