@@ -74,36 +74,53 @@ A step-by-step guide to set up the development environment:
 3. Run the file and every necessary database should be seen in PgAdmin
 
 ## GUI Interfaces
-- **Main Window**:
 
-    <img src="Screenshots/main%20window.PNG" alt="Main Window" width="500">
-
-
-- **Table Window**:
-
-    <img src="Screenshots/income%20table%20window.PNG" alt="Main Window" width="500">
-
-
-- **Table Entry Window**:
-
-    <img src="Screenshots/income%20entry%20window.PNG" alt="Main Window" width="500">
-
-- **Report Selection Window**:
-
-    <img src="Screenshots/income%20report%20selection%20window.PNG" alt="Main Window" width="200">
-
-- **Pie Graph Report Window**:
-
-    <img src="Screenshots/income%20pie%20graph%20window.PNG" alt="Main Window" width="500">
-
-- **Bar Graph Report Window**:
-
-    <img src="Screenshots/income%20bar%20graph%20window.PNG" alt="Main Window" width="500">
-
-- **Bar Graph Comparison Report Window**:
-
-    <img src="Screenshots/comparison%20bar%20graph%20window.PNG" alt="Main Window" width="500">
-
+<div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;">
+    <div style="text-align: center;">
+        <img src="Screenshots/main_window.PNG" alt="Feature 1" />
+        <p style="font-size: 12px;">Main Window</p>
+    </div>
+    <div style="text-align: center;">
+        <img src="Screenshots/main_income_window.PNG" alt="Feature 2" />
+        <p style="font-size: 12px;">Main Income Window</p>
+    </div>
+    <div style="text-align: center;">
+        <img src="Screenshots/main_expense_window.PNG" alt="Feature 3" />
+        <p style="font-size: 12px;">Main Expense Window</p>
+    </div>
+    <div style="text-align: center;">
+        <img src="Screenshots/main_savings_window.PNG" alt="Feature 4" />
+        <p style="font-size: 12px;">Main Savings Window</p>
+    </div>
+    <div style="text-align: center;">
+        <img src="Screenshots/main_report_window.PNG" alt="Feature 5" />
+        <p style="font-size: 12px;">Main Reports Window</p>
+    </div>
+    <div style="text-align: center;">
+        <img src="Screenshots/income_report_selection_window.PNG" alt="Feature 6" />
+        <p style="font-size: 12px;">Report Selection Income, Expense, Savings Report</p>
+    </div>
+    <div style="text-align: center;">
+        <img src="Screenshots/income_bar_graph_window.PNG" alt="Feature 7" />
+        <p style="font-size: 12px;">Bar Graph Example</p>
+    </div>
+    <div style="text-align: center;">
+        <img src="Screenshots/income_pie_graph_window.PNG" alt="Feature 8" />
+        <p style="font-size: 12px;">Pie Graph Example</p>
+    </div>
+    <div style="text-align: center;">
+        <img src="Screenshots/income_table_window.PNG" alt="Feature 9" />
+        <p style="font-size: 12px;">Income Table Example</p>
+    </div>
+    <div style="text-align: center;">
+        <img src="Screenshots/income_entry_window.PNG" alt="Feature 10" />
+        <p style="font-size: 12px;">Entry Form Example</p>
+    </div>
+    <div style="text-align: center;">
+        <img src="Screenshots/comparison_bar_graph_window.PNG" alt="Feature 10" />
+        <p style="font-size: 12px;">Income vs Expense Graph Example</p>
+    </div>
+</div>
 
 ## Running the tests
 
@@ -146,7 +163,7 @@ This section outlines features and improvements that are currently being worked 
     - **Savings Goal Current Progress**: Users will be able to see current progress towards all goals
     - **Budgeting System**: Users will be able to set monthly budgets for different categories and receive alerts when exceeding them.
     - **Recurring Transactions**: Automatically log recurring income or expense transactions (e.g., rent, salary)
-    - **Manual Data Entry**: Users will be able to add/modify entries manually through a text document
+    - ~~**Manual Data Entry**: Users will be able to add/modify entries manually through a text document~~
     - **Interest Calculator**: Users will be able to calculate future profits dependent on savings type (Compound, Simple, etc.)
 - **Upcoming Improvements**: 
     - Restructuring the project for a more efficient and organized directory structure.
