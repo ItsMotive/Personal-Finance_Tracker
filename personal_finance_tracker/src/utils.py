@@ -1,7 +1,7 @@
 from datetime import datetime
 
 # Sorting Columns inside GUI Table
-def sort_column(tree, col, reverse):
+def sortColumn(tree, col, reverse):
 
     # Get all the rows (children) in the Treeview
     rows = tree.get_children('')
@@ -40,7 +40,7 @@ def sort_column(tree, col, reverse):
         tree.move(item, '', index)
 
     # Reverse the sorting order for next click
-    tree.heading(col, command=lambda: sort_column(tree, col, not reverse))
+    tree.heading(col, command=lambda: sortColumn(tree, col, not reverse))
 
 # Ensuring correct value types when sorting
 # def convert_type(value, col):
@@ -66,17 +66,18 @@ def sort_column(tree, col, reverse):
 #     else:
 #         return value  
 
-def convert_to_two_decimals(value):
+def convertToTwoDecimals(value):
     """
     Attempts to convert the input value to a float rounded to two decimal places.
     Returns the formatted value as a string with two decimal places if conversion is successful.
-    Returns None if conversion fails.
+    Returns string if value is unable to convert to float
     """
     try:
         # Convert to float and round to two decimal places
         float_value = float(value)
         formatted_value = f"{float_value:.2f}"
         return formatted_value
+    
     except ValueError:
         # Return None or an error message if conversion fails
         return value

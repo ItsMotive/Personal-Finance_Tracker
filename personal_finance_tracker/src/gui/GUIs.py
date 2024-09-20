@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter import Toplevel, ttk
 from tkinter import messagebox
 
-from src.utils import convert_to_two_decimals, sort_column
+from src.utils import convertToTwoDecimals, sortColumn
 
 def show_error_popup(error: str) -> None:
     # This function will trigger the error popup
@@ -81,7 +81,7 @@ def createTableGUI(root: tk.Tk, title: str, fetch_data_func: callable, columns: 
 
         # Create headings with sorting functionality
         for col in tree["columns"]:
-            tree.heading(col, text=col, anchor=tk.W, command=lambda _col=col: sort_column(tree, _col, False))
+            tree.heading(col, text=col, anchor=tk.W, command=lambda _col=col: sortColumn(tree, _col, False))
 
         # Insert Row Data
         for row_entry in row_entries:
@@ -106,7 +106,7 @@ def inputDataToTable(root: tk.Tk, label: list, gui_title: str, func: callable) -
     entries = [tk.StringVar() for _ in label]
     createInputWindow(root, gui_title, label, entries, func)
 
-def create_editable_table(root: tk.Tk, data: list, columns: list, update_data_func: callable) -> ttk.Treeview:
+def createEditableTable(root: tk.Tk, data: list, columns: list, update_data_func: callable) -> ttk.Treeview:
 
     try: 
         # Get data
@@ -133,7 +133,7 @@ def create_editable_table(root: tk.Tk, data: list, columns: list, update_data_fu
 
         # Create headings with sorting functionality
         for col in tree["columns"]:
-            tree.heading(col, text=col, anchor=tk.W, command=lambda _col=col: sort_column(tree, _col, False))
+            tree.heading(col, text=col, anchor=tk.W, command=lambda _col=col: sortColumn(tree, _col, False))
 
         # Insert Row Data
         for row_entry in row_entries:
@@ -152,14 +152,14 @@ def create_editable_table(root: tk.Tk, data: list, columns: list, update_data_fu
         frame.grid_columnconfigure(0, weight=1)
 
         # Bind double-click to editing a cell
-        tree.bind("<Double-1>", lambda event: update_table_cell(event, tree, root, update_data_func, columns))
+        tree.bind("<Double-1>", lambda event: updateTableGUI(event, tree, root, update_data_func, columns))
 
         return tree
 
     except Exception as e:
         show_error_popup(e)
 
-def update_table_cell(event: tk.Event, tree: ttk.Treeview, root: tk.Tk, update_data_func: callable, columns: list) -> None:
+def updateTableGUI(event: tk.Event, tree: ttk.Treeview, root: tk.Tk, update_data_func: callable, columns: list) -> None:
     selected_item = tree.focus()  # Get the selected row
     item_values = tree.item(selected_item, 'values')  # Get the values of the selected row
     
@@ -167,10 +167,10 @@ def update_table_cell(event: tk.Event, tree: ttk.Treeview, root: tk.Tk, update_d
 
     def update_value(new_value):
 
-        new_value = convert_to_two_decimals(new_value)
+        new_value = convertToTwoDecimals(new_value)
 
         # Call the update callback to update the database and conditionally update the GUI
-        update_db_callback(item_values, col_index, new_value, columns, tree, selected_item, col_index, update_data_func)
+        updateDatabase(item_values, col_index, new_value, columns, tree, selected_item, col_index, update_data_func)
         
         popup.destroy()
 
@@ -186,7 +186,7 @@ def update_table_cell(event: tk.Event, tree: ttk.Treeview, root: tk.Tk, update_d
     save_button = tk.Button(popup, text="Save", command=lambda: update_value(entry.get()))
     save_button.pack(pady=5)
 
-def update_db_callback(row_values, column_index, new_value, columns, tree, selected_item, col_index, update_data_func: callable) -> None:
+def updateDatabase(row_values, column_index, new_value, columns, tree, selected_item, col_index, update_data_func: callable) -> None:
 
     column_name = columns[int(column_index) - 1]  # Get the column name
 
@@ -196,7 +196,7 @@ def update_db_callback(row_values, column_index, new_value, columns, tree, selec
     date_value = row_values[3]
 
     # Attempt to update the database
-    success = update_data_func(column_name, new_value, name_value, amount_value, date_value) #updateIncomeCallback() db_operations
+    success = update_data_func(column_name, new_value, name_value, amount_value, date_value)
 
     if success:
         # Update the GUI table if the database update succeeded
