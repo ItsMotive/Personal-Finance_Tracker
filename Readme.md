@@ -78,51 +78,51 @@ A step-by-step guide to set up the development environment:
 <table style="table-layout: fixed; width: 100%;">
     <tr>
         <td style="text-align: center; width: 30%;">
-            <img src="Screenshots/main_window.PNG" alt="Feature 1" width="600" height="250" />
+            <img src="Screenshots/main_window.PNG" alt="Feature 1" width="150" height="150" />
             <p style="font-size: 12px;">Main Window</p>
         </td>
         <td style="text-align: center; width: 30%;">
-            <img src="Screenshots/main_income_window.PNG" alt="Feature 2" width="600" height="250" />
+            <img src="Screenshots/main_income_window.PNG" alt="Feature 2" width="150" height="150" />
             <p style="font-size: 12px;">Main Income Window</p>
         </td>
         <td style="text-align: center; width: 30%;">
-            <img src="Screenshots/main_expense_window.PNG" alt="Feature 3" width="600" height="250" />
+            <img src="Screenshots/main_expense_window.PNG" alt="Feature 3" width="150" height="150" />
             <p style="font-size: 12px;">Main Expense Window</p>
         </td>
         <td style="text-align: center; width: 30%;">
-            <img src="Screenshots/main_savings_window.PNG" alt="Feature 4" width="600" height="250" />
+            <img src="Screenshots/main_savings_window.PNG" alt="Feature 4" width="150" height="150" />
             <p style="font-size: 12px;">Main Savings Window</p>
         </td>
         <td style="text-align: center; width: 30%;">
-            <img src="Screenshots/main_report_window.PNG" alt="Feature 5" width="600" height="250" />
+            <img src="Screenshots/main_report_window.PNG" alt="Feature 5" width="150" height="150" />
             <p style="font-size: 12px;">Main Reports Window</p>
         </td>
     </tr>
     <tr>
         <td style="text-align: center;">
-            <img src="Screenshots/income_report_selection_window.PNG" alt="Feature 6" width="600" height="250" />
+            <img src="Screenshots/income_report_selection_window.PNG" alt="Feature 6" width="150" height="150" />
             <p style="font-size: 12px;">Report Selection</p>
         </td>
         <td style="text-align: center;">
-            <img src="Screenshots/income_bar_graph_window.PNG" alt="Feature 7" width="600" height="250" />
+            <img src="Screenshots/income_bar_graph_window.PNG" alt="Feature 7" width="150" height="150" />
             <p style="font-size: 12px;">Bar Graph Example</p>
         </td>
         <td style="text-align: center;">
-            <img src="Screenshots/income_pie_graph_window.PNG" alt="Feature 8" width="600" height="250" />
+            <img src="Screenshots/income_pie_graph_window.PNG" alt="Feature 8" width="150" height="150" />
             <p style="font-size: 12px;">Pie Graph Example</p>
         </td>
         <td style="text-align: center;">
-            <img src="Screenshots/income_table_window.PNG" alt="Feature 9" width="600" height="250" />
+            <img src="Screenshots/income_table_window.PNG" alt="Feature 9" width="150" height="150" />
             <p style="font-size: 12px;">Income Table Example</p>
         </td>
         <td style="text-align: center;">
-            <img src="Screenshots/income_entry_window.PNG" alt="Feature 10" width="600" height="250" />
+            <img src="Screenshots/income_entry_window.PNG" alt="Feature 10" width="150" height="150" />
             <p style="font-size: 12px;">Entry Form Example</p>
         </td>
     </tr>
     <tr>
         <td style="text-align: center;">
-            <img src="Screenshots/comparison_bar_graph_window.PNG" alt="Feature 11" width="600" height="250" />
+            <img src="Screenshots/comparison_bar_graph_window.PNG" alt="Feature 11" width="150" height="150" />
             <p style="font-size: 12px;">Income vs Expense Graph Example</p>
         </td>
     </tr>
