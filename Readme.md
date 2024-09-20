@@ -75,7 +75,7 @@ A step-by-step guide to set up the development environment:
 
 ## GUI Interfaces
 
-<table style="table-layout: fixed; width: 150%;">
+<table style="table-layout: fixed; width: 100%;">
     <tr>
         <td style="text-align: center; width: 30%;">
             <img src="Screenshots/main_window.PNG" alt="Feature 1" width="600" height="250" />
