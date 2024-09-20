@@ -28,3 +28,7 @@ def addExpenseQuery():
 def addSavingsGoalQuery():
     query = f"INSERT INTO {SAVINGS_TABLE_NAME} (\"goal\", \"goal_type\", \"goal_amount\", \"start_date\", \"end_date\", \"status\") VALUES (%s, %s, %s, %s, %s, 'Active');"
     return query
+
+def updateIncomeQuery(update_column: str):
+    query = f"UPDATE {INCOME_TABLE_NAME} SET {update_column} = %s WHERE name = %s AND amount = %s AND date = %s;"
+    return query

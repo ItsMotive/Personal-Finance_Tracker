@@ -65,3 +65,18 @@ def sort_column(tree, col, reverse):
 #     # For string columns, return the value as is    
 #     else:
 #         return value  
+
+def convert_to_two_decimals(value):
+    """
+    Attempts to convert the input value to a float rounded to two decimal places.
+    Returns the formatted value as a string with two decimal places if conversion is successful.
+    Returns None if conversion fails.
+    """
+    try:
+        # Convert to float and round to two decimal places
+        float_value = float(value)
+        formatted_value = f"{float_value:.2f}"
+        return formatted_value
+    except ValueError:
+        # Return None or an error message if conversion fails
+        return None

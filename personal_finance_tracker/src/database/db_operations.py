@@ -1,8 +1,7 @@
 import psycopg2
 import tkinter as tk
 from src.Credentials import USERNAME, PASSWORD, DATABASE_NAME, HOST, PORT
-from src.gui.GUIs import createInputWindow
-from src.database.SQL_Queries import EXPENSE_TABLE_NAME, INCOME_TABLE_NAME, SAVINGS_TABLE_NAME, addExpenseQuery, addIncomeQuery, addSavingsGoalQuery
+from src.database.SQL_Queries import EXPENSE_TABLE_NAME, INCOME_TABLE_NAME, SAVINGS_TABLE_NAME, addExpenseQuery, addIncomeQuery, addSavingsGoalQuery, updateIncomeQuery
 
 def DB_Connection() -> None:
 
@@ -49,7 +48,7 @@ def grabAllDatabaseData(query: str) -> list:
 
 # --------------------------- Add to Table Functions --------------------------- #
 
-def addToDatabaseGUI(query: callable, params: tuple):
+def addToDatabaseGUI(query: callable, params: tuple) -> None:
 
     conn, cur = DB_Connection()
 
@@ -74,15 +73,38 @@ def addToDatabaseGUI(query: callable, params: tuple):
         cur.close()
         conn.close()
 
-def addIncomeCallback(name: str, source: str, amount: float, date: str):
+def addIncomeCallback(name: str, source: str, amount: float, date: str) -> None:
     addToDatabaseGUI(addIncomeQuery, (name, source, amount, date))
 
-def addExpenseCallback(name: str, source: str, amount: float, date: str):
+def addExpenseCallback(name: str, source: str, amount: float, date: str) -> None:
     addToDatabaseGUI(addExpenseQuery, (name, source, amount, date))
 
-def addSavingsCallback(name: str, source: str, amount: float, start_date: str, end_date: str):
+def addSavingsCallback(name: str, source: str, amount: float, start_date: str, end_date: str) -> None:
     addToDatabaseGUI(addSavingsGoalQuery, (name, source, amount, start_date, end_date))
 
-def inputDataToTable(root: tk.Tk, label: list, gui_title: str, func: callable) -> None:
-    entries = [tk.StringVar() for _ in label]
-    createInputWindow(root, gui_title, label, entries, func)
+# --------------------------- Update Table Functions --------------------------- #
+
+def update_db_cell(query: callable, params: tuple, update_column) -> bool:
+
+    try:
+        # Establish database connection
+        conn, cursor = DB_Connection()
+        
+        # Execute the SQL query
+        cursor.execute(query(update_column), params)
+        
+        # Commit changes if the query was successful
+        conn.commit()
+        return True  # Success
+    
+    except psycopg2.Error as e:
+        print(f"Failed to update the database: {e}")
+        return False  # Failure
+    
+    finally:
+        # Close the connection
+        cursor.close()
+        conn.close()
+
+def updateIncomeCallback(update_column: str, new_value: str, name_value: str, amount_value: str, date_value: str) -> bool:
+    return update_db_cell(updateIncomeQuery, (new_value, name_value, amount_value, date_value), update_column)

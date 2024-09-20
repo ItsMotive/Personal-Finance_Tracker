@@ -4,14 +4,14 @@ from tkinter import ttk
 import os
 import sys
 
-# Add the parent directory of Step_2 to sys.path
+# Add the parent directory to sys.path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from src.visualization.graph import generateExpenseAndIncomeGraph, graphOptions
-from src.constants import EXPENSE_TABLE_HEADERS, EXPENSE_TABLE_LABEL, INCOME_TABLE_HEADERS, INCOME_TABLE_LABEL, SAVINGS_TABLE_HEADERS, SAVINGS_TABLE_LABEL
+from src.constants import EXPENSE_TABLE_HEADERS, EXPENSE_TABLE_LABEL, INCOME_TABLE_HEADERS, INCOME_TABLE_LABEL, MODIFY_INCOME_TABLE_HEADERS, SAVINGS_TABLE_HEADERS, SAVINGS_TABLE_LABEL
 from src.database.SQL_Queries import SELECT_EXPENSE_QUERY, SELECT_INCOME_QUERY, SELECT_SAVINGS_QUERY
-from src.database.db_operations import addExpenseCallback, addIncomeCallback, addSavingsCallback, grabAllDatabaseData, inputDataToTable
-from src.gui.GUIs import createInputWindow, createTableGUI
+from src.database.db_operations import addExpenseCallback, addIncomeCallback, addSavingsCallback, grabAllDatabaseData, updateIncomeCallback
+from src.gui.GUIs import create_editable_table, createTableGUI, inputDataToTable
 
 def main():
     # Create the main application window
@@ -95,27 +95,30 @@ def main():
     # # ----------------------- Income Tab ----------------------- #
 
     # Display Income Table button
-
     display_income_table_button = tk.Button(
         income_tab, text="Display Income Table", command=lambda: createTableGUI(root, "Income Table", lambda: grabAllDatabaseData(SELECT_INCOME_QUERY), INCOME_TABLE_HEADERS)
     )
     display_income_table_button.grid(row=0, column=0, padx=5, pady=5, sticky="n")
 
     # Display Income Input button
-
     display_income_input_button = tk.Button(
         income_tab, text="Add Income Entry", command=lambda: inputDataToTable(root, INCOME_TABLE_LABEL, "Income Entry Form", addIncomeCallback)
     )
     display_income_input_button.grid(row=1, column=0, padx=5, pady=5, sticky="n")
 
     # Display Income Report button
-
     display_income_graph_button = tk.Button(
         income_tab,
         text="View Income Report",
         command=lambda: graphOptions(root, "income"),
     )
     display_income_graph_button.grid(row=2, column=0, padx=5, pady=5, sticky="n")
+
+    # Display Income Manual Input button
+    display_income_input_button = tk.Button(
+        income_tab, text="Update Income Table", command=lambda: create_editable_table(root, grabAllDatabaseData(SELECT_INCOME_QUERY), MODIFY_INCOME_TABLE_HEADERS, updateIncomeCallback)
+    )
+    display_income_input_button.grid(row=3, column=0, padx=5, pady=5, sticky="n")
 
     # ----------------------- Expense Tab ----------------------- #
 
