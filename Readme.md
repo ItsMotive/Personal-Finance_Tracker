@@ -61,17 +61,8 @@ A step-by-step guide to set up the development environment:
 
 ### Setting up PostgreSQL server
 1. Install [PostgreSQL](https://www.postgresql.org/) and [PgAdmin](https://www.pgadmin.org/)
-2. Open up [Database_Table_Creation_Script.py](/DB_Setup/Database_Table_Creation_Script.py) and update **initialSetup()** function with your information:
-    ```
-    connection = psycopg2.connect(
-            dame=Your Database Name,
-            user=Your Database Username,
-            password=Your Database Password,
-            host=Your Database Host,
-            port=Your Database Port
-        )
-    ```
-3. Run the file and every necessary database should be seen in PgAdmin
+2. Open up [Credentials.py](/src/Credentials.py) and update credentials with your information
+3. Run [main.py](/src/main.py) and click on "Setup PostgreSQL Database" button
 
 ## GUI Interfaces
 
