@@ -7,6 +7,7 @@ import sys
 # Add the parent directory to sys.path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
+from DB_Setup.Database_Table_Creation_Script import createTables
 from src.visualization.graph import generateExpenseAndIncomeGraph, graphOptions
 from src.constants import EXPENSE_TABLE_HEADERS, EXPENSE_TABLE_LABEL, INCOME_TABLE_HEADERS, INCOME_TABLE_LABEL, MODIFY_INCOME_TABLE_HEADERS, SAVINGS_TABLE_HEADERS, SAVINGS_TABLE_LABEL
 from src.database.SQL_Queries import SELECT_EXPENSE_QUERY, SELECT_INCOME_QUERY, SELECT_SAVINGS_QUERY
@@ -90,7 +91,13 @@ def main():
         pady=10,
         relief="flat",
     )
-    title_label.pack(padx=20, pady=20)
+    title_label.grid(row=0, column=0, padx=20, pady=20, sticky="n")  # Use grid
+
+    # Display Income Table button
+    display_db_setup_button = tk.Button(
+        main_tab, text="Setup PostgreSQL Database", command=lambda: createTables()
+    )
+    display_db_setup_button.grid(row=1, column=0, padx=5, pady=5, sticky="n")
 
     # # ----------------------- Income Tab ----------------------- #
 

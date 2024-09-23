@@ -1,13 +1,14 @@
+from tkinter import messagebox
 import psycopg2
 from psycopg2 import sql
 
 import sys
 import os
 
-# Add the parent directory of Step_2 to sys.path
+# Add the parent directory of src
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from Step_2.Credentials import DATABASE_NAME, USERNAME, PASSWORD, HOST, PORT
+from src.Credentials import DATABASE_NAME, USERNAME, PASSWORD, HOST, PORT
 
 # Database connection details
 DB_NAME = DATABASE_NAME
@@ -148,8 +149,6 @@ def createSavingsEntriesTable(connection):
         cursor.execute(create_table_query)
         connection.commit()
 
-        print("Table created successfully.")
-
     except Exception as error:
         print(f"Error occurred: {error}")
 
@@ -160,10 +159,17 @@ def createSavingsEntriesTable(connection):
         if connection:
             connection.close()
 
-
 # --------------------------- Table Creation --------------------------- #
 
-createIncomeTable(initialSetup())
-createExpenseTable(initialSetup())
-createSavingsTable(initialSetup())
-createSavingsEntriesTable(initialSetup())
+def createTables():
+    try: 
+        createIncomeTable(initialSetup())
+        createExpenseTable(initialSetup())
+        createSavingsTable(initialSetup())
+        createSavingsEntriesTable(initialSetup())
+
+    except Exception as e:
+        messagebox.showerror(f"Error Occurred: {e}")
+
+    finally:
+        messagebox.showinfo("Success", "All Tables have been created!")
