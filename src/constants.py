@@ -64,10 +64,10 @@ MODIFY_EXPENSE_TABLE_HEADERS = [
 ]
 
 MODIFY_SAVINGS_TABLE_HEADERS = [
-        "Goal Name", 
-        "Goal Type", 
-        "Goal Amount", 
-        "Goal Start Date", 
-        "Goal End Date", 
-        "Active"
+        "goal", 
+        "goal_type", 
+        "goal_amount", 
+        "start_date", 
+        "end_date", 
+        "status"
 ]

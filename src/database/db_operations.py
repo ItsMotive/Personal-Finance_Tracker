@@ -1,7 +1,7 @@
 import psycopg2
 import tkinter as tk
 from src.Credentials import USERNAME, PASSWORD, DATABASE_NAME, HOST, PORT
-from src.database.SQL_Queries import EXPENSE_TABLE_NAME, INCOME_TABLE_NAME, SAVINGS_TABLE_NAME, addExpenseQuery, addIncomeQuery, addSavingsGoalQuery, updateIncomeQuery
+from src.database.SQL_Queries import EXPENSE_TABLE_NAME, INCOME_TABLE_NAME, SAVINGS_TABLE_NAME, addExpenseQuery, addIncomeQuery, addSavingsGoalQuery, updateExpenseQuery, updateIncomeQuery, updateSavingsGoalQuery
 
 def DB_Connection() -> None:
 
@@ -108,3 +108,10 @@ def update_db_cell(query: callable, params: tuple, update_column) -> bool:
 
 def updateIncomeCallback(update_column: str, new_value: str, name_value: str, amount_value: str, date_value: str) -> bool:
     return update_db_cell(updateIncomeQuery, (new_value, name_value, amount_value, date_value), update_column)
+
+def updateExpenseCallback(update_column: str, new_value: str, name_value: str, amount_value: str, date_value: str) -> bool:
+    return update_db_cell(updateExpenseQuery, (new_value, name_value, amount_value, date_value), update_column)
+
+def updateSavingsGoalCallback(update_column: str, new_value: str, name_value: str, type_value: str, amount_value: str, start_date_value: str, end_date_value: str, status_value: str) -> bool:
+    print("updateSavingsGoalCallback")
+    return update_db_cell(updateSavingsGoalQuery, (new_value, name_value, type_value, amount_value, start_date_value, end_date_value, status_value), update_column)

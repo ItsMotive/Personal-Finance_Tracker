@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter import Toplevel, ttk
 from tkinter import messagebox
 
-from src.utils import convertToTwoDecimals, sortColumn
+from src.utils import convertToTwoDecimals, is_float, is_string, is_valid_date, sortColumn, validateInput
 
 def show_error_popup(error: str) -> None:
     # This function will trigger the error popup
@@ -106,15 +106,15 @@ def inputDataToTable(root: tk.Tk, label: list, gui_title: str, func: callable) -
     entries = [tk.StringVar() for _ in label]
     createInputWindow(root, gui_title, label, entries, func)
 
-def createEditableTable(root: tk.Tk, data: list, columns: list, update_data_func: callable) -> ttk.Treeview:
+def createEditableTable(root: tk.Tk, data: list, columns: list, update_data_func: callable, table_type: str) -> ttk.Treeview:
 
-    try: 
+    try:
         # Get data
         row_entries = data
 
         # Create the main window
         window = Toplevel(root)
-        window.title("Manual Table Editor")
+        window.title(f"Manual Table Editor - {table_type}")
 
         # Create a frame to hold the Treeview and Scrollbar
         frame = ttk.Frame(window)
@@ -152,26 +152,24 @@ def createEditableTable(root: tk.Tk, data: list, columns: list, update_data_func
         frame.grid_columnconfigure(0, weight=1)
 
         # Bind double-click to editing a cell
-        tree.bind("<Double-1>", lambda event: updateTableGUI(event, tree, root, update_data_func, columns))
+        tree.bind("<Double-1>", lambda event: updateTableGUI(event, tree, root, update_data_func, columns, table_type))
 
         return tree
 
     except Exception as e:
         show_error_popup(e)
 
-def updateTableGUI(event: tk.Event, tree: ttk.Treeview, root: tk.Tk, update_data_func: callable, columns: list) -> None:
+
+def updateTableGUI(event: tk.Event, tree: ttk.Treeview, root: tk.Tk, update_data_func: callable, columns: list, table_type: str) -> None:
     selected_item = tree.focus()  # Get the selected row
     item_values = tree.item(selected_item, 'values')  # Get the values of the selected row
-    
+
     col_index = tree.identify_column(event.x)[-1]  # Identify the clicked column index
 
     def update_value(new_value):
-
         new_value = convertToTwoDecimals(new_value)
-
-        # Call the update callback to update the database and conditionally update the GUI
-        updateDatabase(item_values, col_index, new_value, columns, tree, selected_item, col_index, update_data_func)
-        
+        # Call the update callback with the necessary arguments based on the table type
+        updateDatabase(item_values, col_index, new_value, columns, tree, selected_item, col_index, update_data_func, table_type)
         popup.destroy()
 
     # Create a pop-up window to get the new value
@@ -186,22 +184,31 @@ def updateTableGUI(event: tk.Event, tree: ttk.Treeview, root: tk.Tk, update_data
     save_button = tk.Button(popup, text="Save", command=lambda: update_value(entry.get()))
     save_button.pack(pady=5)
 
-def updateDatabase(row_values, column_index, new_value, columns, tree, selected_item, col_index, update_data_func: callable) -> None:
+
+def updateDatabase(row_values, column_index, new_value, columns, tree, selected_item, col_index, update_data_func: callable, table_type: str) -> None:
 
     column_name = columns[int(column_index) - 1]  # Get the column name
+    success = False
 
-    # Extract the name, amount, and date values from the row
-    name_value = row_values[0]
-    amount_value = row_values[2]
-    date_value = row_values[3]
+    # Validate the input using the general validation function
+    if not validateInput(column_name, new_value):
+        return  # Exit if validation fails
 
-    # Attempt to update the database
-    success = update_data_func(column_name, new_value, name_value, amount_value, date_value)
+    if table_type in ["Income", "Expense"]:
 
+        # Both income and expense tables have the same structure
+        name_value, amount_value, date_value = row_values[0], row_values[2], row_values[3]
+        success = update_data_func(column_name, new_value, name_value, amount_value, date_value)
+
+    elif table_type == "SavingsGoal":
+
+        # For savings goal table with more fields
+        name_value, type_value, amount_value, start_date_value, end_date_value, status_value = row_values[0:6]
+        success = update_data_func(column_name, new_value, name_value, type_value, amount_value, start_date_value, end_date_value, status_value)
+
+    # Update the GUI table if the database update succeeded
     if success:
-        # Update the GUI table if the database update succeeded
         tree.set(selected_item, column=str(int(col_index) - 1), value=new_value)
-        messagebox.showinfo("Update Successful", f"Updated Row: \nName = {name_value}, \nAmount = {amount_value}, \nDate = {date_value}, \nColumn '{column_name}' to new value: {new_value}")
-
+        messagebox.showinfo("Update Successful", f"Updated Column '{column_name}' to new value: {new_value}")
     else:
         messagebox.showerror("Database Error", "Failed to update the database. Please try again.")

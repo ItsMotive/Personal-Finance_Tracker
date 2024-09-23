@@ -1,4 +1,5 @@
 from datetime import datetime
+from tkinter import messagebox
 
 # Sorting Columns inside GUI Table
 def sortColumn(tree, col, reverse):
@@ -42,30 +43,6 @@ def sortColumn(tree, col, reverse):
     # Reverse the sorting order for next click
     tree.heading(col, command=lambda: sortColumn(tree, col, not reverse))
 
-# Ensuring correct value types when sorting
-# def convert_type(value, col):
-    
-#     # Define the column-specific data types
-#     if col == "Income Amount":
-#         try:
-#             return float(value)
-        
-#         # or handle the error as appropriate
-#         except ValueError:
-#             return float('inf')  
-        
-#     elif col == "Income Date":
-#         try:
-#             return datetime.strptime(value, "%Y-%m-%d")
-        
-#         # or handle the error as appropriate
-#         except ValueError:
-#             return datetime.max  
-
-#     # For string columns, return the value as is    
-#     else:
-#         return value  
-
 def convertToTwoDecimals(value):
     """
     Attempts to convert the input value to a float rounded to two decimal places.
@@ -81,3 +58,54 @@ def convertToTwoDecimals(value):
     except ValueError:
         # Return None or an error message if conversion fails
         return value
+
+def is_string(value: str) -> bool:
+    return isinstance(value, str) and bool(value.strip())
+
+def is_float(value: str) -> bool:
+    try:
+        float(value)
+        return True
+    
+    except ValueError:
+        return False
+
+def is_valid_date(value: str) -> bool:
+    try:
+        datetime.strptime(value, '%Y-%m-%d')  # Adjust format as necessary
+        return True
+    
+    except ValueError:
+        return False
+    
+def is_valid_status(value: str) -> bool:
+    try: 
+        if value in ["Active", "Inactive"]:
+            return True
+        
+    except ValueError:
+        return False
+    
+def validateInput(column_name: str, new_value: str) -> bool:
+    # Define validation rules for different columns
+    validation_rules = {
+        "name": (is_string, "Name must be a non-empty string."),
+        "source": (is_string, "Source must be a non-empty string."),
+        "amount": (is_float, "Amount must be a valid float."),
+        "date": (is_valid_date, "Date must be in YYYY-MM-DD format."),
+        "goal": (is_string, "Goal must be a non-empty string."),
+        "goal_type": (is_string, "Goal Type must be a non-empty string."),
+        "goal_amount": (is_float, "Goal Amount must be a valid float."),
+        "start_date": (is_valid_date, "Start Date must be in YYYY-MM-DD format."),
+        "end_date": (is_valid_date, "End Date must be in YYYY-MM-DD format."),
+        "status": (is_valid_status, "Status must be 'Inactive' or 'Active'")
+    }
+
+    # Check if the column name is in the validation rules
+    if column_name in validation_rules:
+        validator, error_message = validation_rules[column_name]
+        if not validator(new_value):
+            messagebox.showerror("Input Error", error_message)
+            return False
+
+    return True  # Input is valid

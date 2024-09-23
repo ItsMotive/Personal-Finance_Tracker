@@ -9,9 +9,9 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 
 from DB_Setup.Database_Table_Creation_Script import createTables
 from src.visualization.graph import generateExpenseAndIncomeGraph, graphOptions
-from src.constants import EXPENSE_TABLE_HEADERS, EXPENSE_TABLE_LABEL, INCOME_TABLE_HEADERS, INCOME_TABLE_LABEL, MODIFY_INCOME_TABLE_HEADERS, SAVINGS_TABLE_HEADERS, SAVINGS_TABLE_LABEL
+from src.constants import EXPENSE_TABLE_HEADERS, EXPENSE_TABLE_LABEL, INCOME_TABLE_HEADERS, INCOME_TABLE_LABEL, MODIFY_EXPENSE_TABLE_HEADERS, MODIFY_INCOME_TABLE_HEADERS, MODIFY_SAVINGS_TABLE_HEADERS, SAVINGS_TABLE_HEADERS, SAVINGS_TABLE_LABEL
 from src.database.SQL_Queries import SELECT_EXPENSE_QUERY, SELECT_INCOME_QUERY, SELECT_SAVINGS_QUERY
-from src.database.db_operations import addExpenseCallback, addIncomeCallback, addSavingsCallback, grabAllDatabaseData, updateIncomeCallback
+from src.database.db_operations import addExpenseCallback, addIncomeCallback, addSavingsCallback, grabAllDatabaseData, updateExpenseCallback, updateIncomeCallback, updateSavingsGoalCallback
 from src.gui.GUIs import createEditableTable, createTableGUI, inputDataToTable
 
 def main():
@@ -25,7 +25,7 @@ def main():
 
     # Setting Application Window Size
 
-    root.geometry("400x200")
+    root.geometry("450x200")
 
     # Load the icon
 
@@ -122,10 +122,10 @@ def main():
     display_income_graph_button.grid(row=2, column=0, padx=5, pady=5, sticky="n")
 
     # Display Income Manual Input button
-    display_income_input_button = tk.Button(
-        income_tab, text="Update Income Table", command=lambda: createEditableTable(root, grabAllDatabaseData(SELECT_INCOME_QUERY), MODIFY_INCOME_TABLE_HEADERS, updateIncomeCallback)
+    display_income_update_button = tk.Button(
+        income_tab, text="Update Income Table", command=lambda: createEditableTable(root, grabAllDatabaseData(SELECT_INCOME_QUERY), MODIFY_INCOME_TABLE_HEADERS, updateIncomeCallback, "Income")
     )
-    display_income_input_button.grid(row=3, column=0, padx=5, pady=5, sticky="n")
+    display_income_update_button.grid(row=3, column=0, padx=5, pady=5, sticky="n")
 
     # ----------------------- Expense Tab ----------------------- #
 
@@ -152,6 +152,12 @@ def main():
     )
     display_expense_graph_button.grid(row=2, column=0, padx=5, pady=5, sticky="n")
 
+    # Display Expense Manual Input button
+    display_expense_update_button = tk.Button(
+        expense_tab, text="Update Expense Table", command=lambda: createEditableTable(root, grabAllDatabaseData(SELECT_EXPENSE_QUERY), MODIFY_EXPENSE_TABLE_HEADERS, updateExpenseCallback, "Expense")
+    )
+    display_expense_update_button.grid(row=3, column=0, padx=5, pady=5, sticky="n")
+
     # ----------------------- Savings Tab ----------------------- #
 
     # Display Savings Table button
@@ -174,6 +180,12 @@ def main():
         savings_tab, text="View Savings Report", command=lambda: print("WIP")
     )
     display_savings_graph_button.grid(row=2, column=0, padx=5, pady=5, sticky="n")
+
+    # Display Savings Manual Input button
+    display_savings_update_button = tk.Button(
+        savings_tab, text="Update Savings Goal Table", command=lambda: createEditableTable(root, grabAllDatabaseData(SELECT_SAVINGS_QUERY), MODIFY_SAVINGS_TABLE_HEADERS, updateSavingsGoalCallback, "SavingsGoal")
+    )
+    display_savings_update_button.grid(row=3, column=0, padx=5, pady=5, sticky="n")
 
     # ----------------------- Reports Tab ----------------------- #
 
