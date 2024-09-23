@@ -73,7 +73,7 @@ def main():
 
     # Configure each tab frame to center its contents
 
-    for tab in [income_tab, expense_tab, savings_tab, report_tab]:
+    for tab in [main_tab, income_tab, expense_tab, savings_tab, report_tab]:
         tab.grid_rowconfigure(0, weight=0)  # Top row for buttons
         tab.grid_rowconfigure(1, weight=0)  # Row for additional buttons
         tab.grid_rowconfigure(2, weight=1)  # Row for additional buttons
@@ -91,7 +91,7 @@ def main():
         pady=10,
         relief="flat",
     )
-    title_label.grid(row=0, column=0, padx=20, pady=20, sticky="n")  # Use grid
+    title_label.grid(row=0, column=0, padx=20, pady=20, sticky="n")
 
     # Display Income Table button
     display_db_setup_button = tk.Button(
