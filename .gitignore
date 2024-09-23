@@ -6,6 +6,7 @@ src/database/__pycache__
 *.pyc
 
 # Credentials
+src/Credentials.py
 
 # Testing Files (Current WIP)
 tests/
