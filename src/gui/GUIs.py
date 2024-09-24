@@ -3,16 +3,27 @@ import tkinter as tk
 from tkinter import Toplevel, ttk
 from tkinter import messagebox
 
-from src.utils import convertToTwoDecimals, is_float, is_string, is_valid_date, sortColumn, validateInput
+from src.utils import (
+    convertToTwoDecimals,
+    isFloat,
+    isString,
+    isValidDate,
+    sortColumn,
+    validateInput,
+)
+
 
 def show_error_popup(error: str) -> None:
     # This function will trigger the error popup
     messagebox.showerror("Error", error)
 
-def createInputWindow(root: tk.Tk, title: str, labels: list, entries: list, submit_callback: callable) -> None:
+
+def createInputWindow(
+    root: tk.Tk, title: str, labels: list, entries: list, submit_callback: callable
+) -> None:
     # Create the main window
     input_window = Toplevel(root)
-    
+
     # Set the title of the window
     input_window.title(title)
 
@@ -28,23 +39,31 @@ def createInputWindow(root: tk.Tk, title: str, labels: list, entries: list, subm
     def submit():
         # Collect data from the entries
         inputs = [entry_var.get() for entry_var in entries]
-        
+
         # If date is empty, set it to today's date
         for i in range(len(inputs)):
-            if i in {3, 4} and inputs[i] == '':  # Assuming date fields are at index 3 and 4
+            if (
+                i in {3, 4} and inputs[i] == ""
+            ):  # Assuming date fields are at index 3 and 4
                 inputs[i] = datetime.now().strftime("%m/%d/%Y")
-        
+
         # Check if all required fields are filled
-        missing_fields = [label for i, (label, entry_var) in enumerate(zip(labels, entries)) if inputs[i] == '' and i < 4]
+        missing_fields = [
+            label
+            for i, (label, entry_var) in enumerate(zip(labels, entries))
+            if inputs[i] == "" and i < 4
+        ]
         if missing_fields:
             result_label.config(text=f"{', '.join(missing_fields)} are required!")
             return
-        
+
         # Call the provided callback function
         submit_callback(*inputs)
 
         # Display success message
-        result_label.config(text=f"Submission Successful! \n {'\n'.join([f'{label}: {input}' for label, input in zip(labels, inputs)])}")
+        result_label.config(
+            text=f"Submission Successful! \n {'\n'.join([f'{label}: {input}' for label, input in zip(labels, inputs)])}"
+        )
 
     # Create a Submit button widget
     submit_button = tk.Button(input_window, text="Submit", command=submit)
@@ -54,9 +73,12 @@ def createInputWindow(root: tk.Tk, title: str, labels: list, entries: list, subm
     result_label = tk.Label(input_window, text="Input will be displayed here")
     result_label.grid(row=len(labels) + 1, column=0, columnspan=2, pady=10)
 
-def createTableGUI(root: tk.Tk, title: str, fetch_data_func: callable, columns: list) -> None:
 
-    try: 
+def createTableGUI(
+    root: tk.Tk, title: str, fetch_data_func: callable, columns: list
+) -> None:
+
+    try:
         # Get data
         row_entries = fetch_data_func()
 
@@ -81,7 +103,12 @@ def createTableGUI(root: tk.Tk, title: str, fetch_data_func: callable, columns: 
 
         # Create headings with sorting functionality
         for col in tree["columns"]:
-            tree.heading(col, text=col, anchor=tk.W, command=lambda _col=col: sortColumn(tree, _col, False))
+            tree.heading(
+                col,
+                text=col,
+                anchor=tk.W,
+                command=lambda _col=col: sortColumn(tree, _col, False),
+            )
 
         # Insert Row Data
         for row_entry in row_entries:
@@ -92,8 +119,8 @@ def createTableGUI(root: tk.Tk, title: str, fetch_data_func: callable, columns: 
         tree.configure(yscrollcommand=vsb.set)
 
         # Use grid to position Treeview and scrollbar
-        tree.grid(row=0, column=0, sticky='nsew')
-        vsb.grid(row=0, column=1, sticky='ns')
+        tree.grid(row=0, column=0, sticky="nsew")
+        vsb.grid(row=0, column=1, sticky="ns")
 
         # Configure the frame to expand
         frame.grid_rowconfigure(0, weight=1)
@@ -102,11 +129,15 @@ def createTableGUI(root: tk.Tk, title: str, fetch_data_func: callable, columns: 
     except Exception as e:
         show_error_popup(e)
 
+
 def inputDataToTable(root: tk.Tk, label: list, gui_title: str, func: callable) -> None:
     entries = [tk.StringVar() for _ in label]
     createInputWindow(root, gui_title, label, entries, func)
 
-def createEditableTable(root: tk.Tk, data: list, columns: list, update_data_func: callable, table_type: str) -> ttk.Treeview:
+
+def createEditableTable(
+    root: tk.Tk, data: list, columns: list, update_data_func: callable, table_type: str
+) -> ttk.Treeview:
 
     try:
         # Get data
@@ -133,7 +164,12 @@ def createEditableTable(root: tk.Tk, data: list, columns: list, update_data_func
 
         # Create headings with sorting functionality
         for col in tree["columns"]:
-            tree.heading(col, text=col, anchor=tk.W, command=lambda _col=col: sortColumn(tree, _col, False))
+            tree.heading(
+                col,
+                text=col,
+                anchor=tk.W,
+                command=lambda _col=col: sortColumn(tree, _col, False),
+            )
 
         # Insert Row Data
         for row_entry in row_entries:
@@ -144,15 +180,20 @@ def createEditableTable(root: tk.Tk, data: list, columns: list, update_data_func
         tree.configure(yscrollcommand=vsb.set)
 
         # Use grid to position Treeview and scrollbar
-        tree.grid(row=0, column=0, sticky='nsew')
-        vsb.grid(row=0, column=1, sticky='ns')
+        tree.grid(row=0, column=0, sticky="nsew")
+        vsb.grid(row=0, column=1, sticky="ns")
 
         # Configure the frame to expand
         frame.grid_rowconfigure(0, weight=1)
         frame.grid_columnconfigure(0, weight=1)
 
         # Bind double-click to editing a cell
-        tree.bind("<Double-1>", lambda event: updateTableGUI(event, tree, root, update_data_func, columns, table_type))
+        tree.bind(
+            "<Double-1>",
+            lambda event: updateTableGUI(
+                event, tree, root, update_data_func, columns, table_type
+            ),
+        )
 
         return tree
 
@@ -160,16 +201,35 @@ def createEditableTable(root: tk.Tk, data: list, columns: list, update_data_func
         show_error_popup(e)
 
 
-def updateTableGUI(event: tk.Event, tree: ttk.Treeview, root: tk.Tk, update_data_func: callable, columns: list, table_type: str) -> None:
+def updateTableGUI(
+    event: tk.Event,
+    tree: ttk.Treeview,
+    root: tk.Tk,
+    update_data_func: callable,
+    columns: list,
+    table_type: str,
+) -> None:
     selected_item = tree.focus()  # Get the selected row
-    item_values = tree.item(selected_item, 'values')  # Get the values of the selected row
+    item_values = tree.item(
+        selected_item, "values"
+    )  # Get the values of the selected row
 
     col_index = tree.identify_column(event.x)[-1]  # Identify the clicked column index
 
     def update_value(new_value):
         new_value = convertToTwoDecimals(new_value)
         # Call the update callback with the necessary arguments based on the table type
-        updateDatabase(item_values, col_index, new_value, columns, tree, selected_item, col_index, update_data_func, table_type)
+        updateDatabase(
+            item_values,
+            col_index,
+            new_value,
+            columns,
+            tree,
+            selected_item,
+            col_index,
+            update_data_func,
+            table_type,
+        )
         popup.destroy()
 
     # Create a pop-up window to get the new value
@@ -181,11 +241,23 @@ def updateTableGUI(event: tk.Event, tree: ttk.Treeview, root: tk.Tk, update_data
     entry.pack(padx=10, pady=10)
 
     # Add a button to save the new value
-    save_button = tk.Button(popup, text="Save", command=lambda: update_value(entry.get()))
+    save_button = tk.Button(
+        popup, text="Save", command=lambda: update_value(entry.get())
+    )
     save_button.pack(pady=5)
 
 
-def updateDatabase(row_values, column_index, new_value, columns, tree, selected_item, col_index, update_data_func: callable, table_type: str) -> None:
+def updateDatabase(
+    row_values,
+    column_index,
+    new_value,
+    columns,
+    tree,
+    selected_item,
+    col_index,
+    update_data_func: callable,
+    table_type: str,
+) -> None:
 
     column_name = columns[int(column_index) - 1]  # Get the column name
     success = False
@@ -197,18 +269,46 @@ def updateDatabase(row_values, column_index, new_value, columns, tree, selected_
     if table_type in ["Income", "Expense"]:
 
         # Both income and expense tables have the same structure
-        name_value, amount_value, date_value = row_values[0], row_values[2], row_values[3]
-        success = update_data_func(column_name, new_value, name_value, amount_value, date_value)
+        name_value, amount_value, date_value = (
+            row_values[0],
+            row_values[2],
+            row_values[3],
+        )
+        success = update_data_func(
+            column_name, new_value, name_value, amount_value, date_value
+        )
 
     elif table_type == "SavingsGoal":
 
         # For savings goal table with more fields
-        name_value, type_value, amount_value, start_date_value, end_date_value, status_value = row_values[0:6]
-        success = update_data_func(column_name, new_value, name_value, type_value, amount_value, start_date_value, end_date_value, status_value)
+        (
+            name_value,
+            type_value,
+            amount_value,
+            start_date_value,
+            end_date_value,
+            status_value,
+        ) = row_values[0:6]
+
+        success = update_data_func(
+            column_name,
+            new_value,
+            name_value,
+            type_value,
+            amount_value,
+            start_date_value,
+            end_date_value,
+            status_value,
+        )
 
     # Update the GUI table if the database update succeeded
     if success:
         tree.set(selected_item, column=str(int(col_index) - 1), value=new_value)
-        messagebox.showinfo("Update Successful", f"Updated Column '{column_name}' to new value: {new_value}")
+        messagebox.showinfo(
+            "Update Successful",
+            f"Updated Column '{column_name}' to new value: {new_value}",
+        )
     else:
-        messagebox.showerror("Database Error", "Failed to update the database. Please try again.")
+        messagebox.showerror(
+            "Database Error", "Failed to update the database. Please try again."
+        )

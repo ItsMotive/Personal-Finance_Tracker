@@ -4,7 +4,7 @@ from matplotlib import pyplot as plt
 def pieGraph(sums: dict, graph_name: str):
 
     # Data Variable Initialization
-    types = []        # Stores Income Type
+    types = []  # Stores Income Type
     type_values = []  # Stores Income Amount
 
     # Identify categories with less than 5% and group them into 'Other'
@@ -44,40 +44,37 @@ def pieGraph(sums: dict, graph_name: str):
 
     # After the loop, check if there is any accumulated value in 'other_value'
     if other_value > 0:
-        filtered_types.append('Other')
+        filtered_types.append("Other")
         filtered_values.append(other_value)
         filtered_explode.append(0.05)
 
     # Create a list of formatted labels combining source names and their corresponding percentages
     labels = [
-
-        f"{source} - ${value:,.2f}"                               # Use a formatted string to combine each source with its value
-        
-        for source, value in zip(filtered_types, filtered_values) # Iterate over the pairs of source names and their corresponding values using zip
+        f"{source} - ${value:,.2f}"  # Use a formatted string to combine each source with its value
+        for source, value in zip(
+            filtered_types, filtered_values
+        )  # Iterate over the pairs of source names and their corresponding values using zip
     ]
 
     plt.figure(figsize=(11, 10))
-    
+
     # Create a pie chart with customized settings
     plt.pie(
-
-        filtered_values,          # Provide the values for each slice of the pie
-        
-        autopct=lambda p:         # Format the percentage label for each slice
-
-            '{:.2f}%'.format(p)   # Format the percentage value to two decimal places followed by a '%' sign
-            
-            if p > 0              # Only apply this formatting if the percentage is greater than 0
-            
-            else '',              # Otherwise, return an empty string to leave the label blank
-        
-        explode=filtered_explode, # Define the explode effect for each slice to highlight certain slices
-        
-        labels=labels             # Add labels next to each slice of the pie
+        filtered_values,  # Provide the values for each slice of the pie
+        autopct=lambda p: (  # Format the percentage label for each slice
+            "{:.2f}%".format(
+                p
+            )  # Format the percentage value to two decimal places followed by a '%' sign
+            if p > 0  # Only apply this formatting if the percentage is greater than 0
+            else ""
+        ),  # Otherwise, return an empty string to leave the label blank
+        explode=filtered_explode,  # Define the explode effect for each slice to highlight certain slices
+        labels=labels,  # Add labels next to each slice of the pie
     )
-    
+
     plt.title(graph_name)
     plt.show()
+
 
 def barGraph(sums: dict, graph_name: str, x_axis_name: str, y_axis_name: str):
     types = []
@@ -90,8 +87,8 @@ def barGraph(sums: dict, graph_name: str, x_axis_name: str, y_axis_name: str):
         # print(f"{key}: {total_sum}")
 
     # Create bars with a color
-    plt.bar(types, type_values, color='skyblue')  
-    
+    plt.bar(types, type_values, color="skyblue")
+
     # Add titles and labels
     plt.title(graph_name)  # Set the title
     plt.xlabel(x_axis_name)  # Set the x-axis label
@@ -99,7 +96,7 @@ def barGraph(sums: dict, graph_name: str, x_axis_name: str, y_axis_name: str):
 
     # Add value labels on top of bars
     for i, value in enumerate(type_values):
-        plt.text(i, value + 0.5, f"{value:.2f}", ha='center', va='bottom')
+        plt.text(i, value + 0.5, f"{value:.2f}", ha="center", va="bottom")
 
     # Show the plot
     plt.tight_layout()  # Adjust layout to fit labels
