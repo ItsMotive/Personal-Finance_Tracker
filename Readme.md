@@ -66,7 +66,51 @@ A step-by-step guide to set up the development environment:
 
 ## GUI Interfaces
 
-<table style="table-layout: fixed; width: 100%;">
+Main GUI Tab:
+
+<img src="assets/screenshots/main_window.PNG" alt="Main Window" width="400" height="250">
+
+Main Income GUI Tab:
+
+<img src="assets/screenshots/main_income_window.PNG" alt="Income Window" width="400" height="250">
+
+Main Expense GUI Tab:
+
+<img src="assets/screenshots/main_expense_window.PNG" alt="Expense Window" width="400" height="250">
+
+Main Savings GUI Tab:
+
+<img src="assets/screenshots/main_savings_window.PNG" alt="Savings Window" width="400" height="250">
+
+Main Report GUI Tab:
+
+<img src="assets/screenshots/main_report_window.PNG" alt="Report Window" width="400" height="250">
+
+Example Report Selection GUI:
+
+<img src="assets/screenshots/income_report_selection_window.PNG" alt="Report Selection Window" width="200" height="200">
+
+Example Bar Graph GUI:
+
+<img src="assets/screenshots/income_bar_graph_window.PNG" alt="Bar Graph" width="400" height="250">
+
+Example Pie Graph GUI:
+
+<img src="assets/screenshots/income_pie_graph_window.PNG" alt="Pie Graph" width="300" height="250">
+
+Example Table GUI:
+
+<img src="assets/screenshots/income_table_window.PNG" alt="Table GUI" width="400" height="250">
+
+Example Input Form GUI:
+
+<img src="assets/screenshots/income_entry_window.PNG" alt="Input Form" width="400" height="250">
+
+Example Expense vs Income Graph: 
+
+<img src="assets/screenshots/comparison_bar_graph_window.PNG" alt="Input Form" width="400" height="250">
+
+<!-- <table style="table-layout: fixed; width: 100%;">
     <tr>
         <td style="text-align: center; width: 20%;">
             <img src="assets/screenshots/main_window.PNG" alt="Feature 1" width="150" height="150" />
@@ -117,7 +161,7 @@ A step-by-step guide to set up the development environment:
             <p style="font-size: 10px;">Income vs Expense Graph Example</p>
         </td>
     </tr>
-</table>
+</table> -->
 
 ## Running the tests
 
