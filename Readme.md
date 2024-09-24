@@ -206,10 +206,12 @@ This section outlines features and improvements that are currently being worked 
     - **Recurring Transactions**: Automatically log recurring income or expense transactions (e.g., rent, salary)
     - **Manual Data Entry**: Users will be able to add/modify entries manually through a text document
     - **Interest Calculator**: Users will be able to calculate future profits dependent on savings type (Compound, Simple, etc.)
+
 - **Upcoming Improvements**: 
     - Restructuring the project for a more efficient and organized directory structure.
     - Addressing any redundancies in code and improving performance where necessary.
     - Fixing potential issues to ensure smooth user experience and functionality.
+        - Closing main window does not close out opened graphs
 
 ## Authors
 
