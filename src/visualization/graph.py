@@ -143,7 +143,7 @@ def graphOptions(root: tkinter.Tk, type: str):
         select_button = tk.Button(
             graph_options_window,
             text="Select Graph",
-            command=lambda: generateExpenseGraph(str(selected_value.get()), root),
+            command=lambda: generateExpenseGraph(str(selected_value.get())),
         )
         select_button.pack(pady=10)
 

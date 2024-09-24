@@ -87,6 +87,8 @@ def barGraph(sums: dict, graph_name: str, x_axis_name: str, y_axis_name: str):
         type_values.append(float(total_sum))
         # print(f"{key}: {total_sum}")
 
+    plt.figure(figsize=(10, 5))  # Set the figure size
+
     # Create bars with a color
     plt.bar(types, type_values, color="skyblue")
 
