@@ -1,5 +1,5 @@
 from datetime import datetime
-from tkinter import messagebox
+from tkinter import messagebox, ttk
 
 # Sorting Columns inside GUI Table
 def sortColumn(tree, col, reverse):
@@ -109,3 +109,48 @@ def validateInput(column_name: str, new_value: str) -> bool:
             return False
 
     return True  # Input is valid
+
+def applyDarkTheme(root):
+    style = ttk.Style(root)
+    # Use 'clam' theme which can be fully customized
+    style.theme_use("clam")
+
+    # Modify background and foreground colors
+    style.configure(
+        "TFrame",
+        background="#2b2b2b"  # Dark background
+    )
+    style.configure(
+        "TNotebook",
+        background="#2b2b2b",
+        borderwidth=0
+    )
+    style.configure(
+        "TNotebook.Tab",
+        background="#4e4e4e",  # Tab background color
+        foreground="white",  # Text color
+        padding=[10, 5],
+        borderwidth=0
+    )
+    style.map(
+        "TNotebook.Tab",
+        background=[("selected", "#1e1e1e")],  # Active tab background
+        foreground=[("selected", "white")],  # Active tab text color
+    )
+    style.configure(
+        "TLabel",
+        background="#2b2b2b",
+        foreground="white"
+    )
+    style.configure(
+        "TButton",
+        background="#4e4e4e",
+        foreground="white"
+    )
+    style.map(
+        "TButton",
+        background=[("active", "#1e1e1e")]
+    )
+
+    # Ensure all elements use dark backgrounds
+    root.configure(bg="#2b2b2b")

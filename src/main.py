@@ -9,10 +9,33 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 
 from DB_Setup.Database_Table_Creation_Script import createTables
 from src.visualization.graph import generateExpenseAndIncomeGraph, graphOptions
-from src.constants import EXPENSE_TABLE_HEADERS, EXPENSE_TABLE_LABEL, INCOME_TABLE_HEADERS, INCOME_TABLE_LABEL, MODIFY_EXPENSE_TABLE_HEADERS, MODIFY_INCOME_TABLE_HEADERS, MODIFY_SAVINGS_TABLE_HEADERS, SAVINGS_TABLE_HEADERS, SAVINGS_TABLE_LABEL
-from src.database.SQL_Queries import SELECT_EXPENSE_QUERY, SELECT_INCOME_QUERY, SELECT_SAVINGS_QUERY
-from src.database.db_operations import addExpenseCallback, addIncomeCallback, addSavingsCallback, grabAllDatabaseData, updateExpenseCallback, updateIncomeCallback, updateSavingsGoalCallback
+from src.constants import (
+    EXPENSE_TABLE_HEADERS,
+    EXPENSE_TABLE_LABEL,
+    INCOME_TABLE_HEADERS,
+    INCOME_TABLE_LABEL,
+    MODIFY_EXPENSE_TABLE_HEADERS,
+    MODIFY_INCOME_TABLE_HEADERS,
+    MODIFY_SAVINGS_TABLE_HEADERS,
+    SAVINGS_TABLE_HEADERS,
+    SAVINGS_TABLE_LABEL,
+)
+from src.database.SQL_Queries import (
+    SELECT_EXPENSE_QUERY,
+    SELECT_INCOME_QUERY,
+    SELECT_SAVINGS_QUERY,
+)
+from src.database.db_operations import (
+    addExpenseCallback,
+    addIncomeCallback,
+    addSavingsCallback,
+    grabAllDatabaseData,
+    updateExpenseCallback,
+    updateIncomeCallback,
+    updateSavingsGoalCallback,
+)
 from src.gui.GUIs import createEditableTable, createTableGUI, inputDataToTable
+from src.utils import applyDarkTheme
 
 def main():
     # Create the main application window
@@ -50,6 +73,10 @@ def main():
     frame.grid_rowconfigure(0, weight=1)  # Row for the Notebook to expand
     frame.grid_columnconfigure(0, weight=1)  # Center horizontally and allow expansion
 
+    # Apply the dark theme
+
+    applyDarkTheme(root)
+
     # Create a Notebook (tabbed interface)
 
     notebook = ttk.Notebook(frame)
@@ -74,7 +101,7 @@ def main():
     # Configure each tab frame to center its contents
 
     for tab in [main_tab, income_tab, expense_tab, savings_tab, report_tab]:
-        tab.grid_rowconfigure(0, weight=0)  # Top row for buttons
+        tab.grid_rowconfigure(0, weight=1)  # Top row for buttons
         tab.grid_rowconfigure(1, weight=0)  # Row for additional buttons
         tab.grid_rowconfigure(2, weight=1)  # Row for additional buttons
         tab.grid_columnconfigure(0, weight=1)  # Center horizontally
@@ -86,7 +113,9 @@ def main():
         main_tab,
         text="Welcome to your Personal Finance Tracker",
         font=("Arial", 12),
-        fg="black",
+        fg="white",
+        bg="#3e3e3e",
+        activebackground="#1e1e1e",
         padx=20,
         pady=10,
         relief="flat",
@@ -94,36 +123,77 @@ def main():
     title_label.grid(row=0, column=0, padx=20, pady=20, sticky="n")
 
     # Display Income Table button
+
     display_db_setup_button = tk.Button(
-        main_tab, text="Setup PostgreSQL Database", command=lambda: createTables()
+        main_tab,
+        text="Setup PostgreSQL Database",
+        command=lambda: createTables(),
+        fg="white",
+        bg="#3e3e3e",
+        activebackground="#1e1e1e",
     )
     display_db_setup_button.grid(row=1, column=0, padx=5, pady=5, sticky="n")
 
     # # ----------------------- Income Tab ----------------------- #
 
     # Display Income Table button
+
     display_income_table_button = tk.Button(
-        income_tab, text="Display Income Table", command=lambda: createTableGUI(root, "Income Table", lambda: grabAllDatabaseData(SELECT_INCOME_QUERY), INCOME_TABLE_HEADERS)
+        income_tab,
+        text="Display Income Table",
+        command=lambda: createTableGUI(
+            root,
+            "Income Table",
+            lambda: grabAllDatabaseData(SELECT_INCOME_QUERY),
+            INCOME_TABLE_HEADERS,
+        ),
+        fg="white",
+        bg="#3e3e3e",
+        activebackground="#1e1e1e",
     )
     display_income_table_button.grid(row=0, column=0, padx=5, pady=5, sticky="n")
 
     # Display Income Input button
+
     display_income_input_button = tk.Button(
-        income_tab, text="Add Income Entry", command=lambda: inputDataToTable(root, INCOME_TABLE_LABEL, "Income Entry Form", addIncomeCallback)
+        income_tab,
+        text="Add Income Entry",
+        command=lambda: inputDataToTable(
+            root, INCOME_TABLE_LABEL, "Income Entry Form", addIncomeCallback
+        ),
+        fg="white",
+        bg="#3e3e3e",
+        activebackground="#1e1e1e",
     )
     display_income_input_button.grid(row=1, column=0, padx=5, pady=5, sticky="n")
 
     # Display Income Report button
+
     display_income_graph_button = tk.Button(
         income_tab,
         text="View Income Report",
         command=lambda: graphOptions(root, "income"),
+        fg="white",
+        bg="#3e3e3e",
+        activebackground="#1e1e1e",
     )
     display_income_graph_button.grid(row=2, column=0, padx=5, pady=5, sticky="n")
 
     # Display Income Manual Input button
+
     display_income_update_button = tk.Button(
-        income_tab, text="Update Income Table", command=lambda: createEditableTable(root, grabAllDatabaseData(SELECT_INCOME_QUERY), MODIFY_INCOME_TABLE_HEADERS, updateIncomeCallback, "Income")
+        income_tab,
+        text="Update Income Table",
+        command=lambda: createEditableTable(
+            root,
+            grabAllDatabaseData(SELECT_INCOME_QUERY),
+            MODIFY_INCOME_TABLE_HEADERS,
+            updateIncomeCallback,
+            "Income",
+        ),
+        fg="white",
+        bg="#3e3e3e",
+        activebackground="#1e1e1e",
     )
     display_income_update_button.grid(row=3, column=0, padx=5, pady=5, sticky="n")
 
@@ -132,14 +202,31 @@ def main():
     # Display Expense Table button
 
     display_expense_table_button = tk.Button(
-        expense_tab, text="Display Expense Table", command=lambda: createTableGUI(root, "Expense Table", lambda: grabAllDatabaseData(SELECT_EXPENSE_QUERY), EXPENSE_TABLE_HEADERS)
+        expense_tab,
+        text="Display Expense Table",
+        command=lambda: createTableGUI(
+            root,
+            "Expense Table",
+            lambda: grabAllDatabaseData(SELECT_EXPENSE_QUERY),
+            EXPENSE_TABLE_HEADERS,
+        ),
+        fg="white",
+        bg="#3e3e3e",
+        activebackground="#1e1e1e",
     )
     display_expense_table_button.grid(row=0, column=0, padx=5, pady=5, sticky="n")
 
     # Display Expense Input button
 
     display_expense_input_button = tk.Button(
-        expense_tab, text="Add Expense Entry", command=lambda: inputDataToTable(root, EXPENSE_TABLE_LABEL, "Expense Entry Form", addExpenseCallback)
+        expense_tab,
+        text="Add Expense Entry",
+        command=lambda: inputDataToTable(
+            root, EXPENSE_TABLE_LABEL, "Expense Entry Form", addExpenseCallback
+        ),
+        fg="white",
+        bg="#3e3e3e",
+        activebackground="#1e1e1e",
     )
     display_expense_input_button.grid(row=1, column=0, padx=5, pady=5, sticky="n")
 
@@ -149,12 +236,27 @@ def main():
         expense_tab,
         text="View Expense Report",
         command=lambda: graphOptions(root, "expense"),
+        fg="white",
+        bg="#3e3e3e",
+        activebackground="#1e1e1e",
     )
     display_expense_graph_button.grid(row=2, column=0, padx=5, pady=5, sticky="n")
 
     # Display Expense Manual Input button
+
     display_expense_update_button = tk.Button(
-        expense_tab, text="Update Expense Table", command=lambda: createEditableTable(root, grabAllDatabaseData(SELECT_EXPENSE_QUERY), MODIFY_EXPENSE_TABLE_HEADERS, updateExpenseCallback, "Expense")
+        expense_tab,
+        text="Update Expense Table",
+        command=lambda: createEditableTable(
+            root,
+            grabAllDatabaseData(SELECT_EXPENSE_QUERY),
+            MODIFY_EXPENSE_TABLE_HEADERS,
+            updateExpenseCallback,
+            "Expense",
+        ),
+        fg="white",
+        bg="#3e3e3e",
+        activebackground="#1e1e1e",
     )
     display_expense_update_button.grid(row=3, column=0, padx=5, pady=5, sticky="n")
 
@@ -163,27 +265,61 @@ def main():
     # Display Savings Table button
 
     display_savings_table_button = tk.Button(
-        savings_tab, text="Display Savings Table", command=lambda: createTableGUI(root, "Income Table", lambda: grabAllDatabaseData(SELECT_SAVINGS_QUERY), SAVINGS_TABLE_HEADERS)
+        savings_tab,
+        text="Display Savings Table",
+        command=lambda: createTableGUI(
+            root,
+            "Income Table",
+            lambda: grabAllDatabaseData(SELECT_SAVINGS_QUERY),
+            SAVINGS_TABLE_HEADERS,
+        ),
+        fg="white",
+        bg="#3e3e3e",
+        activebackground="#1e1e1e",
     )
     display_savings_table_button.grid(row=0, column=0, padx=5, pady=5, sticky="n")
 
     # Display Savings Input button
 
     display_savings_input_button = tk.Button(
-        savings_tab, text="Add Savings Entry", command=lambda: inputDataToTable(root, SAVINGS_TABLE_LABEL, "Savings Entry Form", addSavingsCallback)
+        savings_tab,
+        text="Add Savings Entry",
+        command=lambda: inputDataToTable(
+            root, SAVINGS_TABLE_LABEL, "Savings Entry Form", addSavingsCallback
+        ),
+        fg="white",
+        bg="#3e3e3e",
+        activebackground="#1e1e1e",
     )
     display_savings_input_button.grid(row=1, column=0, padx=5, pady=5, sticky="n")
 
     # Display Savings Report button
 
     display_savings_graph_button = tk.Button(
-        savings_tab, text="View Savings Report", command=lambda: print("WIP")
+        savings_tab,
+        text="View Savings Report",
+        command=lambda: print("WIP"),
+        fg="white",
+        bg="#3e3e3e",
+        activebackground="#1e1e1e",
     )
     display_savings_graph_button.grid(row=2, column=0, padx=5, pady=5, sticky="n")
 
     # Display Savings Manual Input button
+
     display_savings_update_button = tk.Button(
-        savings_tab, text="Update Savings Goal Table", command=lambda: createEditableTable(root, grabAllDatabaseData(SELECT_SAVINGS_QUERY), MODIFY_SAVINGS_TABLE_HEADERS, updateSavingsGoalCallback, "SavingsGoal")
+        savings_tab,
+        text="Update Savings Goal Table",
+        command=lambda: createEditableTable(
+            root,
+            grabAllDatabaseData(SELECT_SAVINGS_QUERY),
+            MODIFY_SAVINGS_TABLE_HEADERS,
+            updateSavingsGoalCallback,
+            "SavingsGoal",
+        ),
+        fg="white",
+        bg="#3e3e3e",
+        activebackground="#1e1e1e",
     )
     display_savings_update_button.grid(row=3, column=0, padx=5, pady=5, sticky="n")
 
@@ -195,6 +331,9 @@ def main():
         report_tab,
         text="Display Income vs Expense Report",
         command=lambda: generateExpenseAndIncomeGraph(),
+        fg="white",
+        bg="#3e3e3e",
+        activebackground="#1e1e1e",
     )
     display_income_expense_comparison_button.grid(
         row=0, column=0, padx=5, pady=5, sticky="n"
@@ -203,12 +342,12 @@ def main():
     # ----------------------- Other ----------------------- #
 
     # Bind closing event of the main window to close all windows
+
     root.protocol("WM_DELETE_WINDOW", lambda: root.destroy())
 
     # Run the application
 
     root.mainloop()
-
 
 # Call the main function to start the application
 
