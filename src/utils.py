@@ -144,3 +144,12 @@ def applyDarkTheme(root):
 
     # Ensure all elements use dark backgrounds
     root.configure(bg="#2b2b2b")
+
+
+def center_window(window, width, height):
+    """Centers the Tkinter window on the screen."""
+    screen_width = window.winfo_screenwidth()
+    screen_height = window.winfo_screenheight()
+    x = (screen_width // 2) - (width // 2)
+    y = (screen_height // 2) - (height // 2)
+    window.geometry(f"{width}x{height}+{x}+{y}")

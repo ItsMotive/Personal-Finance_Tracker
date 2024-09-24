@@ -35,10 +35,13 @@ from src.database.db_operations import (
     updateSavingsGoalCallback,
 )
 from src.gui.GUIs import createEditableTable, createTableGUI, inputDataToTable
-from src.utils import applyDarkTheme
+from src.utils import applyDarkTheme, center_window
+
+from PIL import Image, ImageTk
 
 
 def main():
+
     # Create the main application window
     root = tk.Tk()
 
@@ -46,7 +49,9 @@ def main():
     root.title("Personal Finance Tracker")
 
     # Setting Application Window Size
-    root.geometry("450x200")
+    window_width = 500
+    window_height = 250
+    center_window(root, window_width, window_height)
 
     # Load the icon
     icon_path = os.path.join("assets/icons", "app_icon.ico")
@@ -81,12 +86,51 @@ def main():
     savings_tab = ttk.Frame(notebook)
     report_tab = ttk.Frame(notebook)
 
-    # Add frames to notebook as tabs
-    notebook.add(main_tab, text="Home")
-    notebook.add(income_tab, text="Income")
-    notebook.add(expense_tab, text="Expense")
-    notebook.add(savings_tab, text="Saving")
-    notebook.add(report_tab, text="Reports")
+    try:
+        # Load the icons
+        home_icon = ImageTk.PhotoImage(
+            Image.open("assets/icons/database.png").resize((20, 20))
+        )
+        income_icon = ImageTk.PhotoImage(
+            Image.open("assets/icons/wallet.png").resize((20, 20))
+        )
+        expense_icon = ImageTk.PhotoImage(
+            Image.open("assets/icons/receipt.png").resize((20, 20))
+        )
+        savings_icon = ImageTk.PhotoImage(
+            Image.open("assets/icons/piggybank.png").resize((20, 20))
+        )
+        report_icon = ImageTk.PhotoImage(
+            Image.open("assets/icons/graph.png").resize((20, 20))
+        )
+    except Exception as e:
+        print(f"Error loading icons: {e}")
+        return
+
+    def add_tab_with_icon(frame, text, icon):
+        """Adds a tab with an icon to the notebook."""
+        # Create a StringVar for the tab text
+        tab_text = text
+
+        # Add the frame to the notebook with the icon and text as a compound string
+        notebook.add(frame, text=tab_text)
+
+        # Set the icon to the tab
+        notebook.tab(frame, image=icon, compound="left")
+
+    # Add tabs with icons to the notebook
+    add_tab_with_icon(main_tab, "Home", home_icon)
+    add_tab_with_icon(income_tab, "Income", income_icon)
+    add_tab_with_icon(expense_tab, "Expense", expense_icon)
+    add_tab_with_icon(savings_tab, "Savings", savings_icon)
+    add_tab_with_icon(report_tab, "Reports", report_icon)
+
+    # # Add frames to notebook as tabs
+    # notebook.add(main_tab, text="Home")
+    # notebook.add(income_tab, text="Income")
+    # notebook.add(expense_tab, text="Expense")
+    # notebook.add(savings_tab, text="Saving")
+    # notebook.add(report_tab, text="Reports")
 
     # Configure each tab frame to center its contents
     for tab in [main_tab, income_tab, expense_tab, savings_tab, report_tab]:
@@ -137,7 +181,7 @@ def main():
         bg="#3e3e3e",
         activebackground="#1e1e1e",
     )
-    display_income_table_button.grid(row=0, column=0, padx=5, pady=5, sticky="n")
+    display_income_table_button.grid(row=0, column=0, padx=5, pady=(20, 5), sticky="n")
 
     # Display Income Input button
     display_income_input_button = tk.Button(
@@ -178,7 +222,7 @@ def main():
         bg="#3e3e3e",
         activebackground="#1e1e1e",
     )
-    display_income_update_button.grid(row=3, column=0, padx=5, pady=5, sticky="n")
+    display_income_update_button.grid(row=3, column=0, padx=5, pady=(5, 20), sticky="n")
 
     # ----------------------- Expense Tab ----------------------- #
 
@@ -196,7 +240,7 @@ def main():
         bg="#3e3e3e",
         activebackground="#1e1e1e",
     )
-    display_expense_table_button.grid(row=0, column=0, padx=5, pady=5, sticky="n")
+    display_expense_table_button.grid(row=0, column=0, padx=5, pady=(20, 5), sticky="n")
 
     # Display Expense Input button
     display_expense_input_button = tk.Button(
@@ -237,7 +281,9 @@ def main():
         bg="#3e3e3e",
         activebackground="#1e1e1e",
     )
-    display_expense_update_button.grid(row=3, column=0, padx=5, pady=5, sticky="n")
+    display_expense_update_button.grid(
+        row=3, column=0, padx=5, pady=(5, 20), sticky="n"
+    )
 
     # ----------------------- Savings Tab ----------------------- #
 
@@ -255,7 +301,7 @@ def main():
         bg="#3e3e3e",
         activebackground="#1e1e1e",
     )
-    display_savings_table_button.grid(row=0, column=0, padx=5, pady=5, sticky="n")
+    display_savings_table_button.grid(row=0, column=0, padx=5, pady=(20, 5), sticky="n")
 
     # Display Savings Input button
     display_savings_input_button = tk.Button(
@@ -296,7 +342,9 @@ def main():
         bg="#3e3e3e",
         activebackground="#1e1e1e",
     )
-    display_savings_update_button.grid(row=3, column=0, padx=5, pady=5, sticky="n")
+    display_savings_update_button.grid(
+        row=3, column=0, padx=5, pady=(5, 20), sticky="n"
+    )
 
     # ----------------------- Reports Tab ----------------------- #
 
@@ -310,7 +358,7 @@ def main():
         activebackground="#1e1e1e",
     )
     display_income_expense_comparison_button.grid(
-        row=0, column=0, padx=5, pady=5, sticky="n"
+        row=0, column=0, padx=5, pady=(20, 5), sticky="n"
     )
 
     # ----------------------- Other ----------------------- #

@@ -56,6 +56,7 @@ def pieGraph(sums: dict, graph_name: str):
         )  # Iterate over the pairs of source names and their corresponding values using zip
     ]
 
+    # Create a matplotlib figure
     plt.figure(figsize=(11, 10))
 
     # Create a pie chart with customized settings

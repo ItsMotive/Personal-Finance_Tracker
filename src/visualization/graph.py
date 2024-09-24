@@ -20,7 +20,6 @@ from src.visualization.Graphs import pieGraph, barGraph
 
 def generateGraph(
     graph_type: str,
-    root: tk.Tk,
     data_query: str,
     title_prefix: str,
     pie_title: str,
@@ -114,7 +113,7 @@ def graphOptions(root: tkinter.Tk, type: str):
         select_button = tk.Button(
             graph_options_window,
             text="Select Graph",
-            command=lambda: generateIncomeGraph(str(selected_value.get()), root),
+            command=lambda: generateIncomeGraph(str(selected_value.get())),
         )
         select_button.pack(pady=10)
 
@@ -149,7 +148,7 @@ def graphOptions(root: tkinter.Tk, type: str):
         select_button.pack(pady=10)
 
 
-def generateIncomeGraph(graph_type: str, root: tkinter.Tk):
+def generateIncomeGraph(graph_type: str):
     data = grabAllDatabaseData(SELECT_INCOME_QUERY)
 
     # Dictionary to store the sums
@@ -221,7 +220,7 @@ def generateIncomeGraph(graph_type: str, root: tkinter.Tk):
         )
 
 
-def generateExpenseGraph(graph_type: str, root: tkinter.Tk):
+def generateExpenseGraph(graph_type: str):
     data = grabAllDatabaseData(SELECT_EXPENSE_QUERY)
 
     # Dictionary to store the sums
