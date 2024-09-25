@@ -5,6 +5,7 @@ from src.database.SQL_Queries import (
     addExpenseQuery,
     addIncomeQuery,
     addSavingsGoalQuery,
+    addSavingsQuery,
     updateExpenseQuery,
     updateIncomeQuery,
     updateSavingsGoalQuery,
@@ -94,10 +95,14 @@ def addExpenseCallback(name: str, source: str, amount: float, date: str) -> None
     addToDatabaseGUI(addExpenseQuery, (name, source, amount, date))
 
 
-def addSavingsCallback(
+def addSavingsGoalCallback(
     name: str, source: str, amount: float, start_date: str, end_date: str
 ) -> None:
     addToDatabaseGUI(addSavingsGoalQuery, (name, source, amount, start_date, end_date))
+
+
+def addSavingsCallback(name: str, amount: float, date: str):
+    addToDatabaseGUI(addSavingsQuery, (name, amount, date))
 
 
 # --------------------------- Update Table Functions --------------------------- #

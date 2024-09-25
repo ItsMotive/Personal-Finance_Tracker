@@ -15,6 +15,11 @@ SELECT_SAVINGS_QUERY = f"SELECT * FROM {SAVINGS_GOALS_TABLE_NAME};"
 
 SELECT_SAVINGS_ENTRIES_QUERY = f"SELECT * FROM {SAVINGS_TABLE_NAME};"
 
+SELECT_UNIQUE_SAVINGS_GOAL_QUERY = (
+    f"SELECT DISTINCT goal FROM {SAVINGS_GOALS_TABLE_NAME};"
+)
+
+
 # ------------ SQL Query Functions ------------ #
 
 
@@ -30,6 +35,11 @@ def addExpenseQuery():
 
 def addSavingsGoalQuery():
     query = f'INSERT INTO {SAVINGS_GOALS_TABLE_NAME} ("goal", "goal_type", "goal_amount", "start_date", "end_date", "status") VALUES (%s, %s, %s, %s, %s, \'Active\');'
+    return query
+
+
+def addSavingsQuery():
+    query = f'INSERT INTO {SAVINGS_TABLE_NAME} ("savings_goal", "savings_amount", "date") VALUES (%s, %s, %s);'
     return query
 
 

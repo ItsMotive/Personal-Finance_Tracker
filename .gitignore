@@ -10,6 +10,7 @@ src/Credentials.py
 
 # Testing Files (Current WIP)
 tests/
+test_savings.py
 
 # Original Files
 (1)_Original_Process/

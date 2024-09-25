@@ -14,12 +14,18 @@ EXPENSE_TABLE_LABEL = [
     "Expense Date (MM/DD/YYYY) (*Leave blank for today): ",
 ]
 
-SAVINGS_TABLE_LABEL = [
+SAVINGS_GOAL_TABLE_LABEL = [
     "Savings Name:",
     "Savings Type:",
     "Savings Amount:",
     "Savings Start Date (MM/DD/YYYY) (*Leave blank for today): ",
     "Savings End Date (MM/DD/YYYY) (*Leave blank for today): ",
+]
+
+SAVINGS_TABLE_LABEL = [
+    "Savings Name:",
+    "Savings Amount:",
+    "Savings Entry Date Date (MM/DD/YYYY) (*Leave blank for today): ",
 ]
 
 # ----------------- Table Headers ----------------- #

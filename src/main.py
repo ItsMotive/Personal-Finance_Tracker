@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+from PIL import Image, ImageTk
 
 import os
 import sys
@@ -7,18 +8,21 @@ import sys
 # Add the parent directory to sys.path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
+from src.gui.util_gui import createEditableTable, createTableGUI
+from src.utils import applyDarkTheme, centerWindow
+from src.gui.savings_gui import createSavingsInputGUI
+from src.gui.savings_goal_gui import createSavingsGoalInputGUI
+from src.gui.expense_gui import createExpenseGraphOptions, createExpenseInputGUI
+from src.gui.income_gui import createIncomeGraphOptions, createIncomeInputGUI
 from DB_Setup.Database_Table_Creation_Script import createTables
-from src.visualization.graph import generateExpenseAndIncomeGraph, graphOptions
+from src.visualization.income_expense_graphs import generateExpenseAndIncomeGraph
 from src.constants import (
     EXPENSE_TABLE_HEADERS,
-    EXPENSE_TABLE_LABEL,
     INCOME_TABLE_HEADERS,
-    INCOME_TABLE_LABEL,
     MODIFY_EXPENSE_TABLE_HEADERS,
     MODIFY_INCOME_TABLE_HEADERS,
     MODIFY_SAVINGS_TABLE_HEADERS,
     SAVINGS_TABLE_HEADERS,
-    SAVINGS_TABLE_LABEL,
 )
 from src.database.SQL_Queries import (
     SELECT_EXPENSE_QUERY,
@@ -29,15 +33,19 @@ from src.database.db_operations import (
     addExpenseCallback,
     addIncomeCallback,
     addSavingsCallback,
+    addSavingsGoalCallback,
     grabAllDatabaseData,
     updateExpenseCallback,
     updateIncomeCallback,
     updateSavingsGoalCallback,
 )
-from src.gui.GUIs import createEditableTable, createTableGUI, inputDataToTable
-from src.utils import applyDarkTheme, center_window
 
-from PIL import Image, ImageTk
+# Used for getting window size
+# def get_window_size(root):
+#     root.update_idletasks()  # Ensure the window has been drawn and sized
+#     width = root.winfo_width()
+#     height = root.winfo_height()
+#     print(f"Current window size: {width}x{height}")
 
 
 def main():
@@ -49,9 +57,9 @@ def main():
     root.title("Personal Finance Tracker")
 
     # Setting Application Window Size
-    window_width = 500
-    window_height = 250
-    center_window(root, window_width, window_height)
+    window_width = 484
+    window_height = 260
+    centerWindow(root, window_width, window_height)
 
     # Load the icon
     icon_path = os.path.join("assets/icons", "app_icon.ico")
@@ -60,8 +68,9 @@ def main():
     # Configure the main window grid
     root.grid_rowconfigure(0, weight=0)  # Top empty space
     root.grid_rowconfigure(1, weight=0)  # Content area (Notebook)
-    root.grid_rowconfigure(2, weight=1)  # Content area (Notebook)
-    root.grid_rowconfigure(3, weight=0)  # Bottom empty space
+    root.grid_rowconfigure(2, weight=0)  # Content area (Notebook)
+    root.grid_rowconfigure(3, weight=1)  # Bottom empty space
+    root.grid_rowconfigure(4, weight=0)  # Bottom empty space
     root.grid_columnconfigure(0, weight=1)  # Center horizontally
 
     # Create a Frame and add it to the window
@@ -137,6 +146,7 @@ def main():
         tab.grid_rowconfigure(0, weight=1)  # Top row for buttons
         tab.grid_rowconfigure(1, weight=0)  # Row for additional buttons
         tab.grid_rowconfigure(2, weight=1)  # Row for additional buttons
+        tab.grid_rowconfigure(3, weight=1)  # Row for additional buttons
         tab.grid_columnconfigure(0, weight=1)  # Center horizontally
     # # ----------------------- Main Tab ----------------------- #
 
@@ -153,6 +163,11 @@ def main():
         relief="flat",
     )
     title_label.grid(row=0, column=0, padx=20, pady=20, sticky="n")
+
+    # button = tk.Button(
+    #     main_tab, text="Get Window Size", command=lambda: get_window_size(root)
+    # )
+    # button.grid(pady=20)
 
     # Display Income Table button
     display_db_setup_button = tk.Button(
@@ -187,9 +202,7 @@ def main():
     display_income_input_button = tk.Button(
         income_tab,
         text="Add Income Entry",
-        command=lambda: inputDataToTable(
-            root, INCOME_TABLE_LABEL, "Income Entry Form", addIncomeCallback
-        ),
+        command=lambda: createIncomeInputGUI(root, addIncomeCallback),
         fg="white",
         bg="#3e3e3e",
         activebackground="#1e1e1e",
@@ -200,7 +213,7 @@ def main():
     display_income_graph_button = tk.Button(
         income_tab,
         text="View Income Report",
-        command=lambda: graphOptions(root, "income"),
+        command=lambda: createIncomeGraphOptions(root),
         fg="white",
         bg="#3e3e3e",
         activebackground="#1e1e1e",
@@ -222,7 +235,7 @@ def main():
         bg="#3e3e3e",
         activebackground="#1e1e1e",
     )
-    display_income_update_button.grid(row=3, column=0, padx=5, pady=(5, 20), sticky="n")
+    display_income_update_button.grid(row=3, column=0, padx=5, pady=5, sticky="n")
 
     # ----------------------- Expense Tab ----------------------- #
 
@@ -246,9 +259,7 @@ def main():
     display_expense_input_button = tk.Button(
         expense_tab,
         text="Add Expense Entry",
-        command=lambda: inputDataToTable(
-            root, EXPENSE_TABLE_LABEL, "Expense Entry Form", addExpenseCallback
-        ),
+        command=lambda: createExpenseInputGUI(root, addExpenseCallback),
         fg="white",
         bg="#3e3e3e",
         activebackground="#1e1e1e",
@@ -259,7 +270,7 @@ def main():
     display_expense_graph_button = tk.Button(
         expense_tab,
         text="View Expense Report",
-        command=lambda: graphOptions(root, "expense"),
+        command=lambda: createExpenseGraphOptions(root),
         fg="white",
         bg="#3e3e3e",
         activebackground="#1e1e1e",
@@ -281,14 +292,12 @@ def main():
         bg="#3e3e3e",
         activebackground="#1e1e1e",
     )
-    display_expense_update_button.grid(
-        row=3, column=0, padx=5, pady=(5, 20), sticky="n"
-    )
+    display_expense_update_button.grid(row=3, column=0, padx=5, pady=5, sticky="n")
 
     # ----------------------- Savings Tab ----------------------- #
 
-    # Display Savings Table button
-    display_savings_table_button = tk.Button(
+    # Display Savings Goal Table button
+    display_savings_goal_table_button = tk.Button(
         savings_tab,
         text="Display Savings Table",
         command=lambda: createTableGUI(
@@ -301,20 +310,31 @@ def main():
         bg="#3e3e3e",
         activebackground="#1e1e1e",
     )
-    display_savings_table_button.grid(row=0, column=0, padx=5, pady=(20, 5), sticky="n")
+    display_savings_goal_table_button.grid(
+        row=0, column=0, padx=5, pady=(20, 5), sticky="n"
+    )
 
-    # Display Savings Input button
-    display_savings_input_button = tk.Button(
+    # Display Savings Goal Input button
+    display_savings_goal_input_button = tk.Button(
         savings_tab,
-        text="Add Savings Entry",
-        command=lambda: inputDataToTable(
-            root, SAVINGS_TABLE_LABEL, "Savings Entry Form", addSavingsCallback
-        ),
+        text="Add Savings Goal Entry",
+        command=lambda: createSavingsGoalInputGUI(root, addSavingsGoalCallback),
         fg="white",
         bg="#3e3e3e",
         activebackground="#1e1e1e",
     )
-    display_savings_input_button.grid(row=1, column=0, padx=5, pady=5, sticky="n")
+    display_savings_goal_input_button.grid(row=1, column=0, padx=5, pady=5, sticky="n")
+
+    # Display Savings Input button
+    display_savings_goal_input_button = tk.Button(
+        savings_tab,
+        text="Add Savings Entry",
+        command=lambda: createSavingsInputGUI(root, addSavingsCallback),
+        fg="white",
+        bg="#3e3e3e",
+        activebackground="#1e1e1e",
+    )
+    display_savings_goal_input_button.grid(row=2, column=0, padx=5, pady=5, sticky="n")
 
     # Display Savings Report button
     display_savings_graph_button = tk.Button(
@@ -325,7 +345,7 @@ def main():
         bg="#3e3e3e",
         activebackground="#1e1e1e",
     )
-    display_savings_graph_button.grid(row=2, column=0, padx=5, pady=5, sticky="n")
+    display_savings_graph_button.grid(row=3, column=0, padx=5, pady=5, sticky="n")
 
     # Display Savings Manual Input button
     display_savings_update_button = tk.Button(
@@ -343,7 +363,7 @@ def main():
         activebackground="#1e1e1e",
     )
     display_savings_update_button.grid(
-        row=3, column=0, padx=5, pady=(5, 20), sticky="n"
+        row=4, column=0, padx=5, pady=(5, 20), sticky="n"
     )
 
     # ----------------------- Reports Tab ----------------------- #
