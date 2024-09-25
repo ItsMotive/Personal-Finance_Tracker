@@ -5,18 +5,28 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import tkinter as tk
 
-from src.database.SQL_Queries import SELECT_SAVINGS_ENTRIES_QUERY
+from src.database.SQL_Queries import (
+    SELECT_INACTIVE_SAVINGS_GOAL_QUERY,
+    SELECT_SAVINGS_ENTRIES_QUERY,
+)
 from src.database.db_operations import grabAllDatabaseData
+from src.utils import flatTuple
 
 
-def savingsDataPrep(raw_data: list) -> dict:
+def savingsDataPrep(raw_data: list, exclude_inactive: list) -> dict:
     savings_data = defaultdict(dict)
     all_months = set()
+    exclude_list = flatTuple(exclude_inactive)
 
     # Collect data and track all months across categories
     for category, amount, date in raw_data:
+
+        if category in exclude_list:
+            continue
+
         month = date.strftime("%Y-%m")  # Convert date to "YYYY-MM" format
         all_months.add(month)
+
         if month in savings_data[category]:
             savings_data[category][month] += amount  # Sum amounts if same month
         else:
@@ -52,7 +62,10 @@ def generateSavingsReport(root: tk.Tk) -> None:
     graph_window = tk.Toplevel(root)
     graph_window.title("Savings Report")  # Set title for the new window
 
-    savings_data = savingsDataPrep(grabAllDatabaseData(SELECT_SAVINGS_ENTRIES_QUERY))
+    savings_data = savingsDataPrep(
+        grabAllDatabaseData(SELECT_SAVINGS_ENTRIES_QUERY),
+        grabAllDatabaseData(SELECT_INACTIVE_SAVINGS_GOAL_QUERY),
+    )
 
     fig, ax = plt.subplots(figsize=(8, 5))  # Adjusting figure size
 

@@ -19,6 +19,10 @@ SELECT_UNIQUE_SAVINGS_GOAL_QUERY = (
     f"SELECT DISTINCT goal FROM {SAVING_GOALS_TABLE_NAME};"
 )
 
+SELECT_INACTIVE_SAVINGS_GOAL_QUERY = (
+    f"SELECT goal FROM {SAVING_GOALS_TABLE_NAME} WHERE status = 'Inactive';"
+)
+
 
 # ------------ SQL Query Functions ------------ #
 
