@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter import ttk
 
 from src.constants import EXPENSE_TABLE_LABEL
-from src.utils import isFloat, isValidDate
+from src.utils import convertToTwoDecimals, isFloat, isValidDate
 from src.visualization.expense_graphs import expenseBarGraph, expensePieGraph
 
 
@@ -88,6 +88,9 @@ def createExpenseInputGUI(root: tk.Tk, submit_callback: callable) -> None:
         # Validate Amount Input Field
         if not isFloat(inputs[2]):
             missing_fields.append(labels[2] + " Must be a valid Amount")
+
+        else:
+            inputs[2] = convertToTwoDecimals(inputs[2])
 
         # Iterate over the labels and entries together with their index
         for index, (label, entry_var) in enumerate(zip(labels, entries)):

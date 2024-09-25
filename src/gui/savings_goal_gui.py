@@ -2,7 +2,7 @@ from datetime import datetime
 import tkinter as tk
 
 from src.constants import SAVINGS_GOAL_TABLE_LABEL
-from src.utils import isFloat, isValidDate
+from src.utils import convertToTwoDecimals, isFloat, isValidDate
 
 
 def createSavingsGoalInputGUI(root: tk.Tk, submit_callback: callable) -> None:
@@ -48,6 +48,9 @@ def createSavingsGoalInputGUI(root: tk.Tk, submit_callback: callable) -> None:
         # Validate Amount Input Field
         if not isFloat(inputs[2]):
             missing_fields.append(labels[2] + " Must be a valid Amount")
+
+        else:
+            inputs[2] = convertToTwoDecimals(inputs[2])
 
         # Iterate over the labels and entries together with their index
         for index, (label, entry_var) in enumerate(zip(labels, entries)):

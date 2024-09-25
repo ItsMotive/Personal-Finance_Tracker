@@ -4,7 +4,7 @@ import tkinter as tk
 from src.constants import SAVINGS_TABLE_LABEL
 from src.database.SQL_Queries import SELECT_UNIQUE_SAVINGS_GOAL_QUERY
 from src.database.db_operations import grabAllDatabaseData
-from src.utils import flatTuple, isFloat, isValidDate
+from src.utils import convertToTwoDecimals, flatTuple, isFloat, isValidDate
 
 
 def createSavingsInputGUI(root: tk.Tk, submit_callback: callable) -> None:
@@ -56,6 +56,9 @@ def createSavingsInputGUI(root: tk.Tk, submit_callback: callable) -> None:
         # Validate Amount Input Field
         if not isFloat(inputs[1]):
             missing_fields.append(labels[1] + " Must be a valid Amount")
+
+        else:
+            inputs[1] = convertToTwoDecimals(inputs[1])
 
         # Iterate over the labels and entries together with their index
         for index, (label, entry_var) in enumerate(zip(labels, entries)):
