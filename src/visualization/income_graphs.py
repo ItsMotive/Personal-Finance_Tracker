@@ -2,13 +2,14 @@ from datetime import datetime
 from src.database.SQL_Queries import SELECT_INCOME_QUERY
 from src.database.db_operations import grabAllDatabaseData
 from src.visualization.graphs_util import barGraph, pieGraph
+import tkinter as tk
 
 
 def getIncomeData() -> list:
     return grabAllDatabaseData(SELECT_INCOME_QUERY)
 
 
-def incomePieGraph():
+def incomePieGraph(root: tk.Tk):
 
     # Get Income Data
     data = getIncomeData()
@@ -35,10 +36,10 @@ def incomePieGraph():
             # Else, create an initial value for Income Type
             sums[key] = value
 
-    pieGraph(sums, "Income Pie Graph")
+    pieGraph(sums, "Income Pie Graph", root)
 
 
-def incomeBarGraph():
+def incomeBarGraph(root: tk.Tk):
 
     # Get Income Data
     data = getIncomeData()
@@ -81,4 +82,5 @@ def incomeBarGraph():
         f"Income Bar Graph for {current_year}",
         "Income Month",
         "Income Totals",
+        root,
     )

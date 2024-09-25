@@ -33,10 +33,10 @@ def createExpenseGraphOptions(root: tk.Tk):
         choice = selected_value.get()  # Get the current selected option
         if choice == "Pie (Percentage Comparison)":
             # Call function for pie chart
-            expensePieGraph()  # This function should generate the pie graph
+            expensePieGraph(root)  # This function should generate the pie graph
         elif choice == "Bar Graph":
             # Call function for bar graph
-            expenseBarGraph()  # This function should generate the bar graph
+            expenseBarGraph(root)  # This function should generate the bar graph
         else:
             print("Unknown option selected")
 

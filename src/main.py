@@ -1,4 +1,4 @@
-from tkinter import ttk
+from tkinter import messagebox, ttk
 import tkinter as tk
 
 import os
@@ -16,6 +16,12 @@ from src.tabs.savings_tab import createSavingsTab
 from src.utils import applyDarkTheme, centerWindow
 
 
+def on_closing(root: tk.Tk):
+    if messagebox.askokcancel("Quit", "Do you want to quit?"):
+        root.quit()  # Ends the main loop and prepares to close the window
+        root.destroy()  # Destroys the main window
+
+
 def main():
 
     # Create the main application window
@@ -26,7 +32,7 @@ def main():
 
     # Setting Application Window Size
     window_width = 605
-    window_height = 235
+    window_height = 222
     centerWindow(root, window_width, window_height)
 
     # Load the icon
@@ -65,7 +71,7 @@ def main():
     createBudgetTab(notebook, root)
 
     # Bind window close event
-    root.protocol("WM_DELETE_WINDOW", lambda: root.destroy())
+    root.protocol("WM_DELETE_WINDOW", lambda: on_closing(root))
 
     # Run the application
     root.mainloop()

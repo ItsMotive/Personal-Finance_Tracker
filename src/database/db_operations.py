@@ -8,7 +8,8 @@ from src.database.SQL_Queries import (
     addSavingsQuery,
     updateExpenseQuery,
     updateIncomeQuery,
-    updateSavingsGoalQuery,
+    updateSavingGoalsQuery,
+    updateSavingsQuery,
 )
 
 
@@ -158,7 +159,7 @@ def updateExpenseCallback(
     )
 
 
-def updateSavingsGoalCallback(
+def updateSavingGoalsCallback(
     update_column: str,
     new_value: str,
     name_value: str,
@@ -169,7 +170,7 @@ def updateSavingsGoalCallback(
     status_value: str,
 ) -> bool:
     return update_db_cell(
-        updateSavingsGoalQuery,
+        updateSavingGoalsQuery,
         (
             new_value,
             name_value,
@@ -179,5 +180,19 @@ def updateSavingsGoalCallback(
             end_date_value,
             status_value,
         ),
+        update_column,
+    )
+
+
+def updateSavingsCallback(
+    update_column: str,
+    new_value: str,
+    name_value: str,
+    amount_value: str,
+    date_value: str,
+) -> bool:
+    return update_db_cell(
+        updateSavingsQuery,
+        (new_value, name_value, amount_value, date_value),
         update_column,
     )

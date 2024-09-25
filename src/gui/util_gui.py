@@ -236,6 +236,23 @@ def updateDatabase(
             status_value,
         )
 
+    elif table_type == "Savings":
+
+        # For savings goal table with more fields
+        (
+            name_value,
+            amount_value,
+            date_value,
+        ) = row_values[0:3]
+
+        success = update_data_func(
+            column_name,
+            new_value,
+            name_value,
+            amount_value,
+            date_value,
+        )
+
     # Update the GUI table if the database update succeeded
     if success:
         tree.set(selected_item, column=str(int(col_index) - 1), value=new_value)

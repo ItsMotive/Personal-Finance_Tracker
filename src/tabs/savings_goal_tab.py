@@ -2,15 +2,16 @@ import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageTk
 
-from src.constants import MODIFY_SAVINGS_TABLE_HEADERS, SAVINGS_TABLE_HEADERS
+from src.constants import MODIFY_SAVING_GOALS_TABLE_HEADERS, SAVING_GOALS_TABLE_HEADERS
 from src.database.SQL_Queries import SELECT_SAVINGS_QUERY
 from src.database.db_operations import (
     addSavingsGoalCallback,
     grabAllDatabaseData,
-    updateSavingsGoalCallback,
+    updateSavingGoalsCallback,
 )
 from src.gui.savings_goal_gui import createSavingsGoalInputGUI
 from src.gui.util_gui import createEditableTable, createTableGUI
+from src.visualization.savings_graphs import generateSavingsReport
 
 
 def createSavingGoalsTab(notebook: ttk.Notebook, root: tk.Tk):
@@ -31,12 +32,12 @@ def createSavingGoalsTab(notebook: ttk.Notebook, root: tk.Tk):
     # Display Savings Goal Table button
     display_savings_goal_table_button = tk.Button(
         saving_goals_tab,
-        text="Display Savings Table",
+        text="Display Saving Goals Table",
         command=lambda: createTableGUI(
             root,
             "Income Table",
             lambda: grabAllDatabaseData(SELECT_SAVINGS_QUERY),
-            SAVINGS_TABLE_HEADERS,
+            SAVING_GOALS_TABLE_HEADERS,
         ),
         fg="white",
         bg="#3e3e3e",
@@ -61,7 +62,7 @@ def createSavingGoalsTab(notebook: ttk.Notebook, root: tk.Tk):
     display_savings_graph_button = tk.Button(
         saving_goals_tab,
         text="View Savings Report",
-        command=lambda: print("WIP"),
+        command=lambda: generateSavingsReport(root),
         fg="white",
         bg="#3e3e3e",
         activebackground="#1e1e1e",
@@ -75,8 +76,8 @@ def createSavingGoalsTab(notebook: ttk.Notebook, root: tk.Tk):
         command=lambda: createEditableTable(
             root,
             grabAllDatabaseData(SELECT_SAVINGS_QUERY),
-            MODIFY_SAVINGS_TABLE_HEADERS,
-            updateSavingsGoalCallback,
+            MODIFY_SAVING_GOALS_TABLE_HEADERS,
+            updateSavingGoalsCallback,
             "SavingsGoal",
         ),
         fg="white",

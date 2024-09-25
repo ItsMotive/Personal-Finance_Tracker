@@ -77,7 +77,7 @@ def isFloat(value: str) -> bool:
 
 def isValidDate(value: str) -> bool:
     try:
-        datetime.strptime(value, "%Y-%m-%d")
+        datetime.strptime(value, "%m/%d/%Y")
         return True
 
     except ValueError:

@@ -1,5 +1,7 @@
 from collections import defaultdict
 from matplotlib import pyplot as plt
+import tkinter as tk
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 from src.database.SQL_Queries import SELECT_EXPENSE_QUERY, SELECT_INCOME_QUERY
 from src.database.db_operations import grabAllDatabaseData
@@ -8,8 +10,7 @@ from src.database.db_operations import grabAllDatabaseData
 
 
 # Need to look into (WIP)
-def generateExpenseAndIncomeGraph():
-
+def generateExpenseAndIncomeGraph(root: tk.Tk):
     income_data = grabAllDatabaseData(SELECT_INCOME_QUERY)
     expense_data = grabAllDatabaseData(SELECT_EXPENSE_QUERY)
 
@@ -41,9 +42,17 @@ def generateExpenseAndIncomeGraph():
     # Calculate the differences between income and expense
     differences = [income_by_month[month] - expense_by_month[month] for month in months]
 
+    # Create a new Toplevel window for the graph
+    graph_window = tk.Toplevel(root)
+    graph_window.title("Monthly Income and Expenses")
+
+    # Create a matplotlib figure
+    fig, ax = plt.subplots(
+        figsize=(14, 7)
+    )  # Increase figure size to accommodate legend
+
     # Plot income and expense bars
-    plt.figure(figsize=(14, 7))  # Increase figure size to accommodate legend
-    bars1 = plt.bar(
+    bars1 = ax.bar(
         positions,
         income_values,
         width=bar_width,
@@ -52,7 +61,7 @@ def generateExpenseAndIncomeGraph():
         align="center",
     )
 
-    bars2 = plt.bar(
+    bars2 = ax.bar(
         [p + bar_width for p in positions],
         expense_values,
         width=bar_width,
@@ -64,7 +73,7 @@ def generateExpenseAndIncomeGraph():
     # Add labels above each bar
     for bar in bars1:
         yval = bar.get_height()
-        plt.text(
+        ax.text(
             bar.get_x() + bar.get_width() / 2.0,
             yval,
             f"{yval:.2f}",
@@ -76,7 +85,7 @@ def generateExpenseAndIncomeGraph():
 
     for bar in bars2:
         yval = bar.get_height()
-        plt.text(
+        ax.text(
             bar.get_x() + bar.get_width() / 2.0,
             yval,
             f"{yval:.2f}",
@@ -87,9 +96,9 @@ def generateExpenseAndIncomeGraph():
         )
 
     # Add labels and title
-    plt.xlabel("Month")
-    plt.ylabel("Amount")
-    plt.title("Monthly Income and Expenses")
+    ax.set_xlabel("Month")
+    ax.set_ylabel("Amount")
+    ax.set_title("Monthly Income and Expenses")
 
     # Create custom legend handles for differences
     handles = []
@@ -103,16 +112,36 @@ def generateExpenseAndIncomeGraph():
 
     # Add custom handles and labels for differences
     for i, month in enumerate(months):
-        diff_label = f"{month}: Diff - {differences[i]:.2f}"
+        diff_label = f"{month}: {differences[i]:.2f}"
         handles.append(plt.Line2D([0], [0], color="gray", lw=2))  # Dummy handle
         labels.append(diff_label)
 
     # Create the legend
-    plt.legend(handles=handles, labels=labels, loc="upper left", bbox_to_anchor=(1, 1))
+    ax.legend(
+        handles=handles,
+        labels=labels,
+        loc="upper right",
+        bbox_to_anchor=(1, 1),
+        fontsize="small",
+        borderaxespad=0.5,
+    )
 
     # Set x-axis ticks
-    plt.xticks([p + bar_width / 2 for p in positions], months)
+    ax.set_xticks([p + bar_width / 2 for p in positions])
+    ax.set_xticklabels(months)  # Set x-tick labels to months
 
-    # Show the plot
-    plt.tight_layout()  # Adjust layout to fit legend
-    plt.show()
+    # Create a canvas for the graph in the new window
+    canvas = FigureCanvasTkAgg(
+        fig, master=graph_window
+    )  # Use graph_window instead of root
+    canvas_widget = canvas.get_tk_widget()
+    canvas_widget.grid(row=0, column=0, sticky="nsew")  # Use grid for layout
+
+    # Optional: Configure grid weights for proper resizing
+    graph_window.grid_rowconfigure(0, weight=1)  # Allow row 0 to expand
+    graph_window.grid_columnconfigure(0, weight=1)  # Allow column 0 to expand
+
+    # Call tight_layout to adjust subplots and legend
+    plt.tight_layout()
+
+    canvas.draw()  # Draw the graph on the canvas

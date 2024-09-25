@@ -15,7 +15,7 @@ def createBudgetTab(notebook: ttk.Notebook, root: tk.Tk):
 
     budget_tab.expense_icon = budget_icon
 
-    notebook.add(budget_tab, text="Savings")
+    notebook.add(budget_tab, text="Budget")
     notebook.tab(budget_tab, image=budget_icon, compound="left")
 
     budget_tab.grid_columnconfigure(0, weight=1)  # Centers elements in the center
@@ -24,7 +24,7 @@ def createBudgetTab(notebook: ttk.Notebook, root: tk.Tk):
     display_income_expense_comparison_button = tk.Button(
         budget_tab,
         text="Display Income vs Expense Report",
-        command=lambda: generateExpenseAndIncomeGraph(),
+        command=lambda: generateExpenseAndIncomeGraph(root),
         fg="white",
         bg="#3e3e3e",
         activebackground="#1e1e1e",

@@ -3,6 +3,7 @@
     "activebackground",
     "arange",
     "autopct",
+    "borderaxespad",
     "columnspan",
     "dbname",
     "figsize",
@@ -23,6 +24,7 @@
     "xticks",
     "xytext",
     "ylabel",
+    "ylim",
     "yscrollcommand",
     "yval"
   ]

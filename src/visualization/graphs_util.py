@@ -1,7 +1,9 @@
 from matplotlib import pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+import tkinter as tk
 
 
-def pieGraph(sums: dict, graph_name: str):
+def pieGraph(sums: dict, graph_name: str, root: tk.Tk):
 
     # Data Variable Initialization
     types = []  # Stores Income Type
@@ -30,12 +32,10 @@ def pieGraph(sums: dict, graph_name: str):
 
     # Iterate over each index and percentage in the 'percentages' list
     for i, percentage in enumerate(percentages):
-
         # Creates 'Other' Income Type
         if percentage < 1:
             other_value += type_values[i]
             other_percentage += percentage
-
         # Creates Income Type
         else:
             filtered_types.append(types[i])
@@ -56,28 +56,46 @@ def pieGraph(sums: dict, graph_name: str):
         )  # Iterate over the pairs of source names and their corresponding values using zip
     ]
 
+    # Create a new Toplevel window for the pie chart
+    pie_window = tk.Toplevel(root)
+    pie_window.title(graph_name)  # Set title for the pie chart window
+
     # Create a matplotlib figure
-    plt.figure(figsize=(11, 10))
+    fig, ax = plt.subplots(figsize=(11, 10))
 
     # Create a pie chart with customized settings
-    plt.pie(
+    ax.pie(
         filtered_values,  # Provide the values for each slice of the pie
         autopct=lambda p: (  # Format the percentage label for each slice
-            "{:.2f}%".format(
-                p
-            )  # Format the percentage value to two decimal places followed by a '%' sign
-            if p > 0  # Only apply this formatting if the percentage is greater than 0
-            else ""
-        ),  # Otherwise, return an empty string to leave the label blank
+            "{:.2f}%".format(p)
+            if p > 0
+            else ""  # Only apply this formatting if the percentage is greater than 0
+        ),
         explode=filtered_explode,  # Define the explode effect for each slice to highlight certain slices
         labels=labels,  # Add labels next to each slice of the pie
     )
 
     plt.title(graph_name)
-    plt.show()
+
+    # Create a canvas for the pie chart in the new window
+    canvas = FigureCanvasTkAgg(fig, master=pie_window)  # Use pie_window instead of root
+    canvas_widget = canvas.get_tk_widget()
+
+    # Use grid to place the canvas widget
+    canvas_widget.grid(
+        row=0, column=0, sticky="nsew"
+    )  # Place the canvas in row 0, column 0, and expand
+
+    # Optional: Configure grid weights for proper resizing
+    pie_window.grid_rowconfigure(0, weight=1)  # Allow row 0 to expand
+    pie_window.grid_columnconfigure(0, weight=1)  # Allow column 0 to expand
+
+    canvas.draw()  # Draw the pie chart on the canvas
 
 
-def barGraph(sums: dict, graph_name: str, x_axis_name: str, y_axis_name: str):
+def barGraph(
+    sums: dict, graph_name: str, x_axis_name: str, y_axis_name: str, root: tk.Tk
+):
     types = []
     type_values = []
 
@@ -85,22 +103,37 @@ def barGraph(sums: dict, graph_name: str, x_axis_name: str, y_axis_name: str):
     for key, total_sum in sums.items():
         types.append(key)
         type_values.append(float(total_sum))
-        # print(f"{key}: {total_sum}")
 
-    plt.figure(figsize=(10, 5))  # Set the figure size
+    # Create a new Toplevel window for the bar chart
+    bar_window = tk.Toplevel(root)
+    bar_window.title(graph_name)  # Set title for the bar chart window
+
+    # Create a matplotlib figure
+    fig, ax = plt.subplots(figsize=(10, 5))  # Set the figure size
 
     # Create bars with a color
-    plt.bar(types, type_values, color="skyblue")
+    ax.bar(types, type_values, color="skyblue")
 
     # Add titles and labels
-    plt.title(graph_name)  # Set the title
-    plt.xlabel(x_axis_name)  # Set the x-axis label
-    plt.ylabel(y_axis_name)  # Set the y-axis label
+    ax.set_title(graph_name)  # Set the title
+    ax.set_xlabel(x_axis_name)  # Set the x-axis label
+    ax.set_ylabel(y_axis_name)  # Set the y-axis label
 
     # Add value labels on top of bars
     for i, value in enumerate(type_values):
-        plt.text(i, value + 0.5, f"{value:.2f}", ha="center", va="bottom")
+        ax.text(i, value + 0.5, f"{value:.2f}", ha="center", va="bottom")
 
-    # Show the plot
-    plt.tight_layout()  # Adjust layout to fit labels
-    plt.show()  # Display the graph
+    # Create a canvas for the bar chart in the new window
+    canvas = FigureCanvasTkAgg(fig, master=bar_window)  # Use bar_window instead of root
+    canvas_widget = canvas.get_tk_widget()
+
+    # Use grid to place the canvas widget
+    canvas_widget.grid(
+        row=0, column=0, sticky="nsew"
+    )  # Place the canvas in row 0, column 0, and expand
+
+    # Optional: Configure grid weights for proper resizing
+    bar_window.grid_rowconfigure(0, weight=1)  # Allow row 0 to expand
+    bar_window.grid_columnconfigure(0, weight=1)  # Allow column 0 to expand
+
+    canvas.draw()  # Draw the bar chart on the canvas

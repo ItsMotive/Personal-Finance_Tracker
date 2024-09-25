@@ -1,4 +1,5 @@
 from datetime import datetime
+import tkinter as tk
 from src.database.SQL_Queries import SELECT_EXPENSE_QUERY
 from src.database.db_operations import grabAllDatabaseData
 from src.visualization.graphs_util import barGraph, pieGraph
@@ -8,7 +9,7 @@ def getExpenseData() -> list:
     return grabAllDatabaseData(SELECT_EXPENSE_QUERY)
 
 
-def expensePieGraph():
+def expensePieGraph(root: tk.Tk):
 
     # Get Expense Data
     data = getExpenseData()
@@ -35,10 +36,10 @@ def expensePieGraph():
             # Else, create an initial value for Income Type
             sums[key] = value
 
-    pieGraph(sums, "Expense Pie Graph")
+    pieGraph(sums, "Expense Pie Graph", root)
 
 
-def expenseBarGraph():
+def expenseBarGraph(root: tk.Tk):
 
     # Get Expense Data
     data = getExpenseData()
@@ -81,4 +82,5 @@ def expenseBarGraph():
         f"Expense Bar Graph for {current_year}",
         "Expense Month",
         "Expense Totals",
+        root,
     )
