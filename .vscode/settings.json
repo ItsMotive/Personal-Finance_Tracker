@@ -11,6 +11,7 @@
     "Matplotlib",
     "padx",
     "pady",
+    "piggybank",
     "prettytable",
     "psycopg",
     "skyblue",
