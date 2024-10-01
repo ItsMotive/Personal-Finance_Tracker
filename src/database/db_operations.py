@@ -13,7 +13,9 @@ from src.database.SQL_Queries import (
 )
 
 
-def DB_Connection() -> None:
+def DB_Connection() -> (
+    tuple[psycopg2.extensions.connection, psycopg2.extensions.cursor]
+):
 
     # Establish a connection to the PostgreSQL database
     conn = psycopg2.connect(

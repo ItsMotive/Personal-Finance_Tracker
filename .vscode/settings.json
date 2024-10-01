@@ -8,6 +8,7 @@
     "dbname",
     "figsize",
     "fontsize",
+    "infile",
     "labeldistance",
     "Matplotlib",
     "padx",

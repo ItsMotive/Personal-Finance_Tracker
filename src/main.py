@@ -23,7 +23,6 @@ def on_closing(root: tk.Tk):
 
 
 def main():
-
     # Create the main application window
     root = tk.Tk()
 
@@ -31,25 +30,23 @@ def main():
     root.title("Personal Finance Tracker")
 
     # Setting Application Window Size
-    window_width = 605
-    window_height = 222
+    window_width = 589
+    window_height = 271
     centerWindow(root, window_width, window_height)
 
     # Load the icon
     icon_path = os.path.join("assets/icons", "app_icon.ico")
     root.iconbitmap(icon_path)
 
-    # Configure the main window grid
-    root.grid_rowconfigure(0, weight=0)  # Top empty space
+    # Configure the main window grid for equal top/bottom and side spacing
+    root.grid_rowconfigure(0, weight=1)  # Top space
     root.grid_rowconfigure(1, weight=0)  # Content area (Notebook)
-    root.grid_rowconfigure(2, weight=0)  # Content area (Notebook)
-    root.grid_rowconfigure(3, weight=1)  # Bottom empty space
-    root.grid_rowconfigure(4, weight=0)  # Bottom empty space
-    root.grid_columnconfigure(0, weight=1)  # Center horizontally
+    root.grid_rowconfigure(2, weight=1)  # Bottom space
+    root.grid_columnconfigure(0, weight=1)  # Left and right space
 
-    # Create a Frame and add it to the window
+    # Create a Frame and add it to the window with equal padding
     frame = ttk.Frame(root)
-    frame.grid(row=1, column=0, padx=25, pady=5, sticky="nsew")
+    frame.grid(row=1, column=0, padx=20, pady=20, sticky="nsew")
 
     # Configure the frame grid to expand horizontally
     frame.grid_rowconfigure(0, weight=1)  # Row for the Notebook to expand
