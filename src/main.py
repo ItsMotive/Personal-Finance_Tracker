@@ -31,7 +31,7 @@ def main():
 
     # Setting Application Window Size
     window_width = 589
-    window_height = 271
+    window_height = 314
     centerWindow(root, window_width, window_height)
 
     # Load the icon

@@ -27,9 +27,13 @@ def csvEditor(root: tk.Tk):
             reader = csv.reader(csvfile)
             rows = list(reader)
 
+            if not rows:
+                messagebox.showwarning("CSV Editor", "The CSV file is empty.")
+                return
+
             # Clear existing data
             tree.delete(*tree.get_children())
-            tree["columns"] = rows[0]
+            tree["columns"] = rows[0] if rows else []
             for col in rows[0]:
                 tree.heading(col, text=col)
 
@@ -65,7 +69,6 @@ def csvEditor(root: tk.Tk):
 
     # Function to delete a column
     def delete_column():
-        # Prompt user to select a column to delete
         selected_column = simpledialog.askstring(
             "Delete Column", "Enter the column name to delete:"
         )
@@ -80,7 +83,6 @@ def csvEditor(root: tk.Tk):
                 del values[col_index]
                 tree.item(item, values=values)
 
-            # Re-create column headings
             for col in columns:
                 tree.heading(col, text=col)
         else:
@@ -90,49 +92,110 @@ def csvEditor(root: tk.Tk):
     def on_double_click(event):
         nonlocal entry_popup
 
-        # Identify the row and column that was clicked
         region = tree.identify_region(event.x, event.y)
         if region == "cell":
             column = tree.identify_column(event.x)
             row = tree.identify_row(event.y)
             column_index = int(column.replace("#", "")) - 1
 
-            # Get the value in the clicked cell
             item = tree.item(row)
             cell_value = item["values"][column_index]
 
-            # Create an Entry widget to edit the cell
             x, y, width, height = tree.bbox(row, column)
             entry_popup = tk.Entry(editor_window, width=width)
             entry_popup.place(x=x, y=y, width=width, height=height)
             entry_popup.insert(0, cell_value)
             entry_popup.focus()
 
-            # Bind events for saving the value or canceling the edit
             entry_popup.bind("<Return>", lambda e: save_cell_edit(row, column_index))
             entry_popup.bind("<FocusOut>", lambda e: cancel_edit())
+
+        elif region == "heading":
+            column = tree.identify_column(event.x)
+            column_index = int(column.replace("#", "")) - 1
+            edit_column_header(column_index)
+
+    # Function to edit a column header
+    def edit_column_header(column_index):
+        nonlocal entry_popup
+
+        # Ensure the column index is valid
+        columns = tree["columns"]
+        if column_index < 0 or column_index >= len(columns):
+            messagebox.showwarning("CSV Editor", "Invalid column index!")
+            return
+
+        # Get the first row to determine the bounding box for the specified column
+        first_row = tree.get_children()[0] if tree.get_children() else None
+        if first_row is None:
+            messagebox.showwarning(
+                "CSV Editor", "No data available to edit column header."
+            )
+            return
+
+        # Get the bounding box for the first row and the specified column
+        try:
+            bbox = tree.bbox(first_row, column=f"#{column_index + 1}")
+            if bbox:
+                x, y, width, height = bbox
+
+                # Adjust the x coordinate and width to fit better
+                x -= 1  # Move left by 1 pixel (adjust as needed)
+                width -= 2  # Reduce width by 2 pixels to prevent going too far
+
+                # Create an Entry widget to edit the column header
+                entry_popup = tk.Entry(editor_window, width=width)
+                entry_popup.place(x=x, y=y, width=width, height=height)
+                entry_popup.insert(0, tree.heading(columns[column_index])["text"])
+                entry_popup.focus()
+
+                # Bind events for saving the new header or canceling the edit
+                entry_popup.bind(
+                    "<Return>", lambda e: save_column_header_edit(column_index)
+                )
+                entry_popup.bind("<FocusOut>", lambda e: cancel_edit())
+            else:
+                messagebox.showwarning(
+                    "CSV Editor", "Unable to determine the bounding box for the column."
+                )
+        except _tkinter.TclError:
+            messagebox.showwarning(
+                "CSV Editor", f"Column index {column_index} out of bounds."
+            )
+
+    # Function to save the edited column header
+    def save_column_header_edit(column_index):
+        nonlocal entry_popup
+
+        if column_index < 0 or column_index >= len(tree["columns"]):
+            messagebox.showwarning("CSV Editor", "Invalid column index!")
+            return
+
+        new_column_name = entry_popup.get()
+        columns = list(tree["columns"])
+        columns[column_index] = new_column_name
+        tree["columns"] = columns
+        for col in columns:
+            tree.heading(col, text=col)
+
+        entry_popup.destroy()
+        entry_popup = None
 
     # Function to save the edited cell value
     def save_cell_edit(row, column_index):
         nonlocal entry_popup
 
-        # Get the new value from the Entry widget
         new_value = entry_popup.get()
-
-        # Update the Treeview with the new value
         values = list(tree.item(row)["values"])
         values[column_index] = new_value
         tree.item(row, values=values)
 
-        # Destroy the Entry widget after saving
         entry_popup.destroy()
         entry_popup = None
 
-    # Function to cancel the cell edit
+    # Function to cancel the cell or header edit
     def cancel_edit():
         nonlocal entry_popup
-
-        # Destroy the Entry widget without saving
         if entry_popup:
             entry_popup.destroy()
             entry_popup = None
@@ -162,5 +225,5 @@ def csvEditor(root: tk.Tk):
     )
     delete_column_button.pack(side="left")
 
-    # Bind double-click event to edit a cell
+    # Bind double-click event to edit a cell or column header
     tree.bind("<Double-1>", on_double_click)

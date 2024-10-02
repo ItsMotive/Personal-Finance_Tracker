@@ -75,6 +75,7 @@ def createHomeTab(notebook: ttk.Notebook, root: tk.Tk) -> None:
     )
     display_db_setup_button.grid(row=2, column=0, padx=5, pady=5, sticky="n")
 
+    # Import CSV File
     display_csv_to_db_button = tk.Button(
         home_tab,
         text="Import CSV into Database",
