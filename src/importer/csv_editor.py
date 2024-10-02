@@ -158,7 +158,7 @@ def csvEditor(root: tk.Tk):
                 messagebox.showwarning(
                     "CSV Editor", "Unable to determine the bounding box for the column."
                 )
-        except _tkinter.TclError:
+        except tk.TclError:
             messagebox.showwarning(
                 "CSV Editor", f"Column index {column_index} out of bounds."
             )

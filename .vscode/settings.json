@@ -5,6 +5,7 @@
     "autopct",
     "borderaxespad",
     "columnspan",
+    "csvfile",
     "dbname",
     "figsize",
     "fontsize",
