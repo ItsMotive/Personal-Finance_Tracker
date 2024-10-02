@@ -78,13 +78,17 @@ Main Expense GUI Tab:
 
 <img src="assets/screenshots/main_expense_window.PNG" alt="Expense Window" width="400" height="250">
 
+Main Saving Goals GUI Tab:
+
+<img src="assets/screenshots/main_savings_goal_window.PNG" alt="Savings Window" width="400" height="250">
+
 Main Savings GUI Tab:
 
 <img src="assets/screenshots/main_savings_window.PNG" alt="Savings Window" width="400" height="250">
 
-Main Report GUI Tab:
+Main Budget GUI Tab:
 
-<img src="assets/screenshots/main_report_window.PNG" alt="Report Window" width="400" height="250">
+<img src="assets/screenshots/main_budget_window.PNG" alt="Report Window" width="400" height="250">
 
 Example Report Selection GUI:
 
@@ -109,6 +113,14 @@ Example Input Form GUI:
 Example Expense vs Income Graph: 
 
 <img src="assets/screenshots/comparison_bar_graph_window.PNG" alt="Input Form" width="400" height="250">
+
+Example CSV Editor: 
+
+<img src="assets/screenshots/sample_csv_editor.PNG" alt="CSV Editor" width="400" height="250">
+
+Sample CSV Importer: 
+
+<img src="assets/screenshots/sample_csv_importer.PNG" alt="CSV Importer" width="400" height="250">
 
 <!-- <table style="table-layout: fixed; width: 100%;">
     <tr>
